@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import NavItem from "./NavItem/NavItem";
+import styles from "./Nav.module.css";
 
 const MENU = [
   { text: "Home", href: "/" },
@@ -9,38 +10,21 @@ const MENU = [
 ];
 
 const Nav = () => {
-  const [navActive, setNavActive] = useState(false);
   const [activeIdx, setActiveIdx] = useState(-1);
 
   return (
     <header>
-      <nav className={`nav`}>
+      <nav className={styles.nav}>
         <Link href={"/"}>
           <a>
             <h1 className="logo">L2Type</h1>
           </a>
         </Link>
-        {/* <div
-          onClick={() => setNavActive(!navActive)}
-          className={`nav__menu-bar`}
-        >
-          <div></div>
-          <div></div>
-          <div></div>
-        </div> */}
-        <div className={`${navActive ? "active" : ""} nav__menu-list`}>
-          {MENU.map((menu, idx) => (
-            <div
-              onClick={() => {
-                setActiveIdx(idx);
-                setNavActive(false);
-              }}
-              key={menu.text}
-            >
-              <NavItem active={activeIdx === idx} {...menu} />
-            </div>
+        <ul className={styles.navList}>
+          {MENU.map((item, idx) => (
+            <NavItem active={activeIdx === idx} {...item} key={item.text} />
           ))}
-        </div>
+        </ul>
       </nav>
     </header>
   );
