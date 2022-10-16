@@ -1,0 +1,13 @@
+:root {
+  --color-primary-0: #4bf2b3;
+  --color-complement-0: #ff864f;
+
+  --color-black: #08070a;
+  --color-darker-gray: #141418;
+  --color-dark-gray: #23232e;
+  --color-gray: #b6b6b6;
+  --color-light-gray: #ececec;
+  --color-white: #f6f6f6;
+
+  --transition-speed: 400ms;
+}
