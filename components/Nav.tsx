@@ -8,7 +8,7 @@ const MENU = [
   { text: "Settings", href: "/settings" },
 ];
 
-const Navbar = () => {
+const Nav = () => {
   const [navActive, setNavActive] = useState(false);
   const [activeIdx, setActiveIdx] = useState(-1);
 
@@ -46,4 +46,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Nav;
