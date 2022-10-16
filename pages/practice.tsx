@@ -1,3 +1,3 @@
 export default function Practice() {
-  return <div>hallo</div>;
+  return <div>Practice</div>;
 }
