@@ -19,9 +19,9 @@
   width: 100%;
 }
 
-.navItem:last-child {
+/* .navItem:last-child {
   margin-top: auto;
-}
+} */
 
 .navLink {
   display: flex;
