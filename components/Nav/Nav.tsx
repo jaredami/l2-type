@@ -18,7 +18,7 @@ const Nav = () => {
         <Link href={"/"}>
           <li className={[styles.logo, styles.navLink].join(" ")}>
             <span className={[styles.linkText, styles.logoText].join(" ")}>
-              L2Type
+              L2 Type
             </span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

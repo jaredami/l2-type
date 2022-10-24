@@ -5,7 +5,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>L2Type</title>
+        <title>Home - L2 Type</title>
         <meta name="description" content="Learn to type!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
