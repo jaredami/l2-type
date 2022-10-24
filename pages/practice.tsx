@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import Keyboard from "../components/Keyboard/Keyboard";
 
 export default function Practice() {
   return (
@@ -11,6 +12,7 @@ export default function Practice() {
       <h2>
         <Link href="/">Back to home</Link>
       </h2>
+      <Keyboard></Keyboard>
     </>
   );
 }
