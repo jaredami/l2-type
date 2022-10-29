@@ -74,6 +74,7 @@
   font-size: 1.5rem;
   letter-spacing: 0.3ch;
   width: 100%;
+  cursor: pointer;
 }
 
 .logo svg {
