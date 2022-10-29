@@ -3,8 +3,6 @@ import { useEffect } from "react";
 export default function Keyboard() {
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      console.log("keydown", event);
-
       // if (this.letterIndex === 0) {
       //   this.handleStartOfSample();
       // }
@@ -50,43 +48,43 @@ export default function Keyboard() {
   return (
     <div className="keyboard">
       <div className="keyboard__row keyboard__row--h1">
-        <div data-key="27" className="key--word">
+        <div data-key="Escape" className="key--word">
           <span>esc</span>
         </div>
-        <div data-key="112" className="key--fn">
+        <div data-key="F1" className="key--fn">
           <span>F1</span>
         </div>
-        <div data-key="113" className="key--fn">
+        <div data-key="F2" className="key--fn">
           <span>F2</span>
         </div>
-        <div data-key="114" className="key--fn">
+        <div data-key="F3" className="key--fn">
           <span>F3</span>
         </div>
-        <div data-key="115" className="key--fn">
+        <div data-key="F4" className="key--fn">
           <span>F4</span>
         </div>
-        <div data-key="116" className="key--fn">
+        <div data-key="F5" className="key--fn">
           <span>F5</span>
         </div>
-        <div data-key="117" className="key--fn">
+        <div data-key="F6" className="key--fn">
           <span>F6</span>
         </div>
-        <div data-key="118" className="key--fn">
+        <div data-key="F7" className="key--fn">
           <span>F7</span>
         </div>
-        <div data-key="119" className="key--fn">
+        <div data-key="F8" className="key--fn">
           <span>F8</span>
         </div>
-        <div data-key="120" className="key--fn">
+        <div data-key="F9" className="key--fn">
           <span>F9</span>
         </div>
-        <div data-key="121" className="key--fn">
+        <div data-key="F10" className="key--fn">
           <span>F10</span>
         </div>
-        <div data-key="122" className="key--fn">
+        <div data-key="F11" className="key--fn">
           <span>F11</span>
         </div>
-        <div data-key="123" className="key--fn">
+        <div data-key="F12" className="key--fn">
           <span>F12</span>
         </div>
         <div data-key="n/a" className="key--word">
@@ -94,64 +92,67 @@ export default function Keyboard() {
         </div>
       </div>
       <div className="keyboard__row">
-        <div className="key--double" data-key="192">
+        <div className="key--double" data-key="Backquote">
           <div>~</div>
           <div>`</div>
         </div>
-        <div className="key--double" data-key="49">
+        <div className="key--double" data-key="Digit1">
           <div>!</div>
           <div>1</div>
         </div>
-        <div className="key--double" data-key="50">
+        <div className="key--double" data-key="Digit2">
           <div>@</div>
           <div>2</div>
         </div>
-        <div className="key--double" data-key="51">
+        <div className="key--double" data-key="Digit3">
           <div>#</div>
           <div>3</div>
         </div>
-        <div className="key--double" data-key="52">
+        <div className="key--double" data-key="Digit4">
           <div>$</div>
           <div>4</div>
         </div>
-        <div className="key--double" data-key="53">
+        <div className="key--double" data-key="Digit5">
           <div>%</div>
           <div>5</div>
         </div>
-        <div className="key--double" data-key="54">
+        <div className="key--double" data-key="Digit6">
           <div>^</div>
           <div>6</div>
         </div>
-        <div className="key--double" data-key="55">
+        <div className="key--double" data-key="Digit7">
           <div>&</div>
           <div>7</div>
         </div>
-        <div className="key--double" data-key="56">
+        <div className="key--double" data-key="Digit8">
           <div>*</div>
           <div>8</div>
         </div>
-        <div className="key--double" data-key="57">
+        <div className="key--double" data-key="Digit9">
           <div>(</div>
           <div>9</div>
         </div>
-        <div className="key--double" data-key="48">
+        <div className="key--double" data-key="Digit0">
           <div>)</div>
           <div>0</div>
         </div>
-        <div className="key--double" data-key="189">
+        <div className="key--double" data-key="Minus">
           <div>_</div>
           <div>-</div>
         </div>
-        <div className="key--double" data-key="187">
+        <div className="key--double" data-key="Equal">
           <div>+</div>
           <div>=</div>
         </div>
-        <div className="key--bottom-right key--word key--w4" data-key="8">
+        <div
+          className="key--bottom-right key--word key--w4"
+          data-key="Backspace"
+        >
           <span>delete</span>
         </div>
       </div>
       <div className="keyboard__row">
-        <div className="key--bottom-left key--word key--w4" data-key="9">
+        <div className="key--bottom-left key--word key--w4" data-key="Tab">
           <span>tab</span>
         </div>
         <div className="key--letter" data-char="Q">
@@ -184,21 +185,21 @@ export default function Keyboard() {
         <div className="key--letter" data-char="P">
           P
         </div>
-        <div className="key--double" data-key="219" data-char="{[">
+        <div className="key--double" data-key="BracketLeft" data-char="{[">
           <div>&#123;</div>
           <div>[</div>
         </div>
-        <div className="key--double" data-key="221" data-char="}]">
+        <div className="key--double" data-key="BracketRight" data-char="}]">
           <div>&#125;</div>
           <div>]</div>
         </div>
-        <div className="key--double" data-key="220" data-char="|">
+        <div className="key--double" data-key="Backslash" data-char="|">
           <div>|</div>
           <div>\</div>
         </div>
       </div>
       <div className="keyboard__row">
-        <div className="key--bottom-left key--word key--w5" data-key="20">
+        <div className="key--bottom-left key--word key--w5" data-key="CapsLock">
           <span>caps lock</span>
         </div>
         <div className="key--letter" data-char="A">
@@ -236,12 +237,15 @@ export default function Keyboard() {
           <div>"</div>
           <div>'</div>
         </div>
-        <div className="key--bottom-right key--word key--w5" data-key="13">
+        <div className="key--bottom-right key--word key--w5" data-key="Enter">
           <span>return</span>
         </div>
       </div>
       <div className="keyboard__row">
-        <div className="key--bottom-left key--word key--w6" data-key="16">
+        <div
+          className="key--bottom-left key--word key--w6"
+          data-key="ShiftLeft"
+        >
           <span>shift</span>
         </div>
         <div className="key--letter" data-char="Z">
@@ -265,19 +269,22 @@ export default function Keyboard() {
         <div className="key--letter" data-char="M">
           M
         </div>
-        <div className="key--double" data-key="188">
+        <div className="key--double" data-key="Comma">
           <div>&lt;</div>
           <div>,</div>
         </div>
-        <div className="key--double" data-key="190">
+        <div className="key--double" data-key="Period">
           <div>&gt;</div>
           <div>.</div>
         </div>
-        <div className="key--double" data-key="191">
+        <div className="key--double" data-key="Slash">
           <div>?</div>
           <div>/</div>
         </div>
-        <div className="key--bottom-right key--word key--w6" data-key="16-R">
+        <div
+          className="key--bottom-right key--word key--w6"
+          data-key="ShiftRight"
+        >
           <span>shift</span>
         </div>
       </div>
@@ -285,36 +292,45 @@ export default function Keyboard() {
         <div className="key--bottom-left key--word">
           <span>fn</span>
         </div>
-        <div className="key--bottom-left key--word key--w1" data-key="17">
+        <div
+          className="key--bottom-left key--word key--w1"
+          data-key="ControlLeft"
+        >
           <span>control</span>
         </div>
-        <div className="key--bottom-left key--word key--w1" data-key="18">
+        <div className="key--bottom-left key--word key--w1" data-key="AltLeft">
           <span>option</span>
         </div>
-        <div className="key--bottom-right key--word key--w3" data-key="91">
+        <div
+          className="key--bottom-right key--word key--w3"
+          data-key="MetaLeft"
+        >
           <span>command</span>
         </div>
         <div
           className="key--double key--right key--space"
-          data-key="32"
+          data-key="Space"
           data-char=" "
         >
           &nbsp;
         </div>
-        <div className="key--bottom-left key--word key--w3" data-key="93-R">
+        <div
+          className="key--bottom-left key--word key--w3"
+          data-key="MetaRight"
+        >
           <span>command</span>
         </div>
-        <div className="key--bottom-left key--word key--w1" data-key="18-R">
+        <div className="key--bottom-left key--word key--w1" data-key="AltRight">
           <span>option</span>
         </div>
-        <div data-key="37" className="key--arrow">
+        <div data-key="ArrowLeft" className="key--arrow">
           <span>&#9664;</span>
         </div>
-        <div className="key--double key--arrow--tall" data-key="38">
+        <div className="key--double key--arrow--tall" data-key="ArrowUp">
           <div>&#9650;</div>
           <div>&#9660;</div>
         </div>
-        <div data-key="39" className="key--arrow">
+        <div data-key="ArrowRight" className="key--arrow">
           <span>&#9654;</span>
         </div>
       </div>
