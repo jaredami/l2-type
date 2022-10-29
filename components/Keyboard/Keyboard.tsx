@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export default function Keyboard() {
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      console.log("event.code", event.code);
+      console.log("keydown", event);
 
       // if (this.letterIndex === 0) {
       //   this.handleStartOfSample();
@@ -19,10 +19,16 @@ export default function Keyboard() {
       toggleActiveKeyClass(getKeyElement(event));
     }
 
+    function handleKeyUp(event: KeyboardEvent) {
+      toggleActiveKeyClass(getKeyElement(event));
+    }
+
     document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
 
     return function cleanup() {
       document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
     };
   }, []);
 
