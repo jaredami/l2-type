@@ -1,4 +1,46 @@
+import { useEffect } from "react";
+
 export default function Keyboard() {
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      console.log("event.code", event.code);
+
+      // if (this.letterIndex === 0) {
+      //   this.handleStartOfSample();
+      // }
+
+      // this.checkIfCorrectKey(event.key);
+
+      // if (this.letterIndex === this.sample.length) {
+      //   this.handleEndOfSample();
+      // }
+
+      if (!event) return;
+      toggleActiveKeyClass(getKeyElement(event));
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return function cleanup() {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  function toggleActiveKeyClass(element: Element | null) {
+    if (!element) return;
+    element.classList.toggle("active-key");
+  }
+
+  function getKeyElement(event: KeyboardEvent) {
+    const charSelector = `[data-char="${event.key.toUpperCase()}"]`;
+    const charElement = document.body.querySelector(charSelector);
+
+    const keySelector = `[data-key="${event.code}"]`;
+    const keyElement = document.body.querySelector(keySelector);
+
+    return charElement || keyElement;
+  }
+
   return (
     <div className="keyboard">
       <div className="keyboard__row keyboard__row--h1">
