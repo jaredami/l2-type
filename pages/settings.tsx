@@ -8,9 +8,6 @@ export default function Settings() {
         <title>Settings - L2 Type</title>
       </Head>
       <h1>Settings</h1>
-      <h2>
-        <Link href="/">Back to home</Link>
-      </h2>
     </>
   );
 }

@@ -9,9 +9,6 @@ export default function Practice() {
         <title>Practice - L2 Type</title>
       </Head>
       <h1>Practice</h1>
-      <h2>
-        <Link href="/">Back to home</Link>
-      </h2>
       <Keyboard></Keyboard>
     </>
   );
