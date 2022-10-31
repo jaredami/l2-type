@@ -21,10 +21,9 @@
 
 .keyboard__row > * {
   position: relative;
-  background: #333;
-  /* background: var(--color-dark-gray); */
+  background: var(--color-dark-gray);
   text-align: center;
-  color: #eee;
+  color: var(--color-white);
   float: left;
   border-radius: 0.3em;
   margin: 0.2em;
@@ -34,9 +33,7 @@
   box-sizing: border-box;
   cursor: pointer;
   -webkit-user-select: none;
-  border: 1px solid #444;
-  /* border: 1px solid var(--color-gray); */
-  box-shadow: 0 0.2em 0 0.05em #222;
+  outline: 1px solid var(--color-gray);
   border-bottom-color: #555;
 }
 
@@ -47,11 +44,10 @@
 .keyboard__row > div[data-pressed],
 .keyboard__row > div:active,
 .keyboard__row > div.active-key {
-  background: #2a2a2a;
-  color: #aaa;
+  background: var(--color-darker-gray);
+  color: var(--color-light-gray);
   position: relative;
   top: 0.2em;
-  box-shadow: 0 0 0 0.05em black;
 }
 
 .key--w3 {
