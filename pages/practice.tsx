@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Link from "next/link";
 import Keyboard from "../components/Keyboard/Keyboard";
 
 export default function Practice() {
