@@ -43,6 +43,8 @@ export default function Practice() {
   const [sample, setSample] = useState<string[]>([]);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [mistakeIndexes, setMistakeIndexes] = useState<number[]>([]);
+  const [sampleStartTime, setSampleStartTime] = useState(0);
+  const [prevSampleWPM, setPrevSampleWPM] = useState(0);
 
   useEffect(() => {
     function getSample() {
@@ -87,17 +89,39 @@ export default function Practice() {
     [currentCharIndex, mistakeIndexes, sample]
   );
 
+  function handleStartOfSample() {
+    setSampleStartTime(Date.now());
+  }
+
+  // TODO useCallback
+  function handleEndOfSample() {
+    getWpm();
+    // stats.addWpmEntry(wpm);
+    // sample = getSample();
+    // letterIndex = 0;
+    // mistakeIndexes = [];
+  }
+
+  function getWpm() {
+    const elapsedTime = Date.now() - sampleStartTime;
+    const seconds = elapsedTime / 1000;
+    const minutes = seconds / 60;
+    const roughWpm = sample.length / 5 / minutes;
+    const wpm = Math.round(100 * roughWpm) / 100;
+    setPrevSampleWPM(wpm);
+  }
+
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      // if (this.letterIndex === 0) {
-      //   this.handleStartOfSample();
-      // }
+      if (currentCharIndex === 0) {
+        handleStartOfSample();
+      }
 
       checkIfCorrectKey(event.key);
 
-      // if (this.letterIndex === this.sample.length) {
-      //   this.handleEndOfSample();
-      // }
+      if (currentCharIndex === sample.length) {
+        handleEndOfSample();
+      }
 
       toggleActiveKeyClass(getKeyElement(event));
     }
@@ -113,7 +137,7 @@ export default function Practice() {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
     };
-  }, [checkIfCorrectKey]);
+  }, [checkIfCorrectKey, currentCharIndex, handleEndOfSample, sample.length]);
 
   return (
     <>
@@ -121,17 +145,14 @@ export default function Practice() {
         <title>Practice - L2 Type</title>
       </Head>
       <h1>Practice</h1>
-
-      {sample.length && (
-        <>
-          <TextBoard
-            sample={sample}
-            mistakeIndexes={mistakeIndexes}
-            currentCharIndex={currentCharIndex}
-          ></TextBoard>
-          <Keyboard></Keyboard>
-        </>
-      )}
+      <>
+        <TextBoard
+          sample={sample}
+          mistakeIndexes={mistakeIndexes}
+          currentCharIndex={currentCharIndex}
+        ></TextBoard>
+        <Keyboard></Keyboard>
+      </>
     </>
   );
 }
