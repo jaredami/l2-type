@@ -17,7 +17,6 @@ export default function Keyboard({
       //   this.handleEndOfSample();
       // }
 
-      if (!event) return;
       toggleActiveKeyClass(getKeyElement(event));
     }
 
