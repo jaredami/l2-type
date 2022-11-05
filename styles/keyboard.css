@@ -22,7 +22,7 @@
 
 .keyboard__row > * {
   position: relative;
-  background: var(--color-dark-gray);
+  background: var(--color-gray-dark);
   text-align: center;
   color: var(--color-white);
   float: left;

@@ -1,6 +1,6 @@
 .nav {
   position: fixed;
-  background-color: var(--color-dark-gray);
+  background-color: var(--color-gray-dark);
   transition: width 400ms ease;
   overflow: scroll;
   z-index: 10;
