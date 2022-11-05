@@ -145,14 +145,13 @@ export default function Practice() {
         <title>Practice - L2 Type</title>
       </Head>
       <h1>Practice</h1>
-      <>
-        <TextBoard
-          sample={sample}
-          mistakeIndexes={mistakeIndexes}
-          currentCharIndex={currentCharIndex}
-        ></TextBoard>
-        <Keyboard></Keyboard>
-      </>
+      <p>Speed: {prevSampleWPM}</p>
+      <TextBoard
+        sample={sample}
+        mistakeIndexes={mistakeIndexes}
+        currentCharIndex={currentCharIndex}
+      ></TextBoard>
+      <Keyboard></Keyboard>
     </>
   );
 }
