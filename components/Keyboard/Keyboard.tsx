@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 
-export default function Keyboard() {
+export default function Keyboard({
+  checkIfCorrectKey,
+}: {
+  checkIfCorrectKey(key: string): void;
+}) {
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       // if (this.letterIndex === 0) {
       //   this.handleStartOfSample();
       // }
 
-      // this.checkIfCorrectKey(event.key);
+      checkIfCorrectKey(event.key);
 
       // if (this.letterIndex === this.sample.length) {
       //   this.handleEndOfSample();

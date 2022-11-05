@@ -41,6 +41,8 @@ function getRandomNumber(upperLimit: number, lowerLimit = 0) {
 
 export default function Practice() {
   const [sample, setSample] = useState<string[]>([]);
+  const [letterIndex, setLetterIndex] = useState(0);
+  const [mistakeIndexes, setMistakeIndexes] = useState<number[]>([]);
 
   useEffect(() => {
     function getSample() {
@@ -50,14 +52,27 @@ export default function Practice() {
     setSample(getSample());
   }, []);
 
+  function checkIfCorrectKey(key: string) {
+    if (
+      (sample[letterIndex] === "_" && key === " ") ||
+      key === sample[letterIndex]
+    ) {
+      setLetterIndex(letterIndex + 1);
+    } else {
+      if (key !== "Shift" && !mistakeIndexes.includes(letterIndex)) {
+        setMistakeIndexes((prev) => [...prev, letterIndex]);
+      }
+    }
+  }
+
   return (
     <>
       <Head>
         <title>Practice - L2 Type</title>
       </Head>
       <h1>Practice</h1>
-      <TextBoard sample={sample}></TextBoard>
-      <Keyboard></Keyboard>
+      <TextBoard sample={sample} mistakeIndexes={mistakeIndexes}></TextBoard>
+      <Keyboard checkIfCorrectKey={checkIfCorrectKey}></Keyboard>
     </>
   );
 }
