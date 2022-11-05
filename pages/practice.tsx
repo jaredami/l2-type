@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Keyboard from "../components/Keyboard/Keyboard";
 import TextBoard from "../components/TextBoard/TextBoard";
 
@@ -52,18 +52,25 @@ export default function Practice() {
     setSample(getSample());
   }, []);
 
-  function checkIfCorrectKey(key: string) {
-    if (
-      (sample[currentCharIndex] === "_" && key === " ") ||
-      key === sample[currentCharIndex]
-    ) {
-      setCurrentCharIndex(currentCharIndex + 1);
-    } else {
-      if (key !== "Shift" && !mistakeIndexes.includes(currentCharIndex)) {
-        setMistakeIndexes((prev) => [...prev, currentCharIndex]);
+  const checkIfCorrectKey = useCallback(
+    (keyPressed: string) => {
+      const correctChar = sample[currentCharIndex];
+      if (
+        (correctChar === "_" && keyPressed === " ") ||
+        keyPressed === correctChar
+      ) {
+        setCurrentCharIndex(currentCharIndex + 1);
+      } else {
+        if (
+          keyPressed !== "Shift" &&
+          !mistakeIndexes.includes(currentCharIndex)
+        ) {
+          setMistakeIndexes((prev) => [...prev, currentCharIndex]);
+        }
       }
-    }
-  }
+    },
+    [currentCharIndex, mistakeIndexes, sample]
+  );
 
   return (
     <>
@@ -71,8 +78,17 @@ export default function Practice() {
         <title>Practice - L2 Type</title>
       </Head>
       <h1>Practice</h1>
-      <TextBoard sample={sample} mistakeIndexes={mistakeIndexes}></TextBoard>
-      <Keyboard checkIfCorrectKey={checkIfCorrectKey}></Keyboard>
+
+      {sample.length && (
+        <>
+          <TextBoard
+            sample={sample}
+            mistakeIndexes={mistakeIndexes}
+            currentCharIndex={currentCharIndex}
+          ></TextBoard>
+          <Keyboard checkIfCorrectKey={checkIfCorrectKey}></Keyboard>
+        </>
+      )}
     </>
   );
 }

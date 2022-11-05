@@ -32,7 +32,7 @@ export default function Keyboard({
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
+  }, [checkIfCorrectKey]);
 
   function toggleActiveKeyClass(element: Element | null) {
     if (!element) return;
