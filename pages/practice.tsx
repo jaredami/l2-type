@@ -1,8 +1,9 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import Keyboard from "../components/Keyboard/Keyboard";
+import TextBoard from "../components/TextBoard/TextBoard";
 
-const SAMPLE_LENGTH = 5;
+const SAMPLE_LENGTH = 20;
 const includeCapitals = false;
 
 function getRandomWords() {
@@ -56,10 +57,11 @@ export default function Practice() {
       </Head>
       <h1>Practice</h1>
       <div>
-        {sample.map((char, i) => {
+        {/* {sample.map((char, i) => {
           return <span key={`${char}${i}`}>{char}</span>;
-        })}
+        })} */}
       </div>
+      <TextBoard sample={sample}></TextBoard>
       <Keyboard></Keyboard>
     </>
   );
