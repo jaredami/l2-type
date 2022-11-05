@@ -52,6 +52,21 @@ export default function Practice() {
     setSample(getSample());
   }, []);
 
+  function toggleActiveKeyClass(element: Element | null) {
+    if (!element) return;
+    element.classList.toggle("active-key");
+  }
+
+  function getKeyElement(event: KeyboardEvent) {
+    const charSelector = `[data-char="${event.key.toUpperCase()}"]`;
+    const charElement = document.body.querySelector(charSelector);
+
+    const keySelector = `[data-key="${event.code}"]`;
+    const keyElement = document.body.querySelector(keySelector);
+
+    return charElement || keyElement;
+  }
+
   const checkIfCorrectKey = useCallback(
     (keyPressed: string) => {
       const correctChar = sample[currentCharIndex];
@@ -72,6 +87,34 @@ export default function Practice() {
     [currentCharIndex, mistakeIndexes, sample]
   );
 
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      // if (this.letterIndex === 0) {
+      //   this.handleStartOfSample();
+      // }
+
+      checkIfCorrectKey(event.key);
+
+      // if (this.letterIndex === this.sample.length) {
+      //   this.handleEndOfSample();
+      // }
+
+      toggleActiveKeyClass(getKeyElement(event));
+    }
+
+    function handleKeyUp(event: KeyboardEvent) {
+      toggleActiveKeyClass(getKeyElement(event));
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+
+    return function cleanup() {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [checkIfCorrectKey]);
+
   return (
     <>
       <Head>
@@ -86,7 +129,7 @@ export default function Practice() {
             mistakeIndexes={mistakeIndexes}
             currentCharIndex={currentCharIndex}
           ></TextBoard>
-          <Keyboard checkIfCorrectKey={checkIfCorrectKey}></Keyboard>
+          <Keyboard></Keyboard>
         </>
       )}
     </>
