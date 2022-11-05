@@ -34,7 +34,7 @@
   box-sizing: border-box;
   cursor: pointer;
   -webkit-user-select: none;
-  outline: 1px solid var(--color-gray);
+  outline: 1px solid var(--color-gray-medium);
   border-bottom-color: #555;
 }
 
