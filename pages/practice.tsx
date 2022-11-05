@@ -55,10 +55,10 @@ export default function Practice() {
   const checkIfCorrectKey = useCallback(
     (keyPressed: string) => {
       const correctChar = sample[currentCharIndex];
-      if (
-        (correctChar === "_" && keyPressed === " ") ||
-        keyPressed === correctChar
-      ) {
+      const spaceBarCorrectlyPressed =
+        correctChar === "_" && keyPressed === " ";
+
+      if (spaceBarCorrectlyPressed || keyPressed === correctChar) {
         setCurrentCharIndex(currentCharIndex + 1);
       } else {
         if (
