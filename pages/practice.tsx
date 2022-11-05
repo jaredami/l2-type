@@ -41,7 +41,7 @@ function getRandomNumber(upperLimit: number, lowerLimit = 0) {
 
 export default function Practice() {
   const [sample, setSample] = useState<string[]>([]);
-  const [letterIndex, setLetterIndex] = useState(0);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [mistakeIndexes, setMistakeIndexes] = useState<number[]>([]);
 
   useEffect(() => {
@@ -54,13 +54,13 @@ export default function Practice() {
 
   function checkIfCorrectKey(key: string) {
     if (
-      (sample[letterIndex] === "_" && key === " ") ||
-      key === sample[letterIndex]
+      (sample[currentCharIndex] === "_" && key === " ") ||
+      key === sample[currentCharIndex]
     ) {
-      setLetterIndex(letterIndex + 1);
+      setCurrentCharIndex(currentCharIndex + 1);
     } else {
-      if (key !== "Shift" && !mistakeIndexes.includes(letterIndex)) {
-        setMistakeIndexes((prev) => [...prev, letterIndex]);
+      if (key !== "Shift" && !mistakeIndexes.includes(currentCharIndex)) {
+        setMistakeIndexes((prev) => [...prev, currentCharIndex]);
       }
     }
   }
