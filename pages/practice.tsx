@@ -56,11 +56,6 @@ export default function Practice() {
         <title>Practice - L2 Type</title>
       </Head>
       <h1>Practice</h1>
-      <div>
-        {/* {sample.map((char, i) => {
-          return <span key={`${char}${i}`}>{char}</span>;
-        })} */}
-      </div>
       <TextBoard sample={sample}></TextBoard>
       <Keyboard></Keyboard>
     </>

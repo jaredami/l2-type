@@ -1,0 +1,6 @@
+.textBoard {
+  width: 34rem;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.5rem;
+}
