@@ -20,6 +20,6 @@ a {
   }
   body {
     color: white;
-    background: var(--color-darker-gray);
+    background: var(--color-gray-darker);
   }
 }
