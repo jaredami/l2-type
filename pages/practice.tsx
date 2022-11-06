@@ -45,6 +45,7 @@ export default function Practice() {
   const [mistakeIndexes, setMistakeIndexes] = useState<number[]>([]);
   const [sampleStartTime, setSampleStartTime] = useState(0);
   const [prevSampleWPM, setPrevSampleWPM] = useState(0);
+  const [prevSampleAccuracy, setPrevSampleAccuracy] = useState(0);
 
   const getSample = useCallback(() => {
     return getRandomWords().join(" ").replaceAll(" ", "_").split("");
@@ -102,13 +103,21 @@ export default function Practice() {
     setPrevSampleWPM(wpm);
   }, [sample.length, sampleStartTime]);
 
+  const getAccuracy = useCallback(() => {
+    const sampleLength = sample.length;
+    const correctCharsCount = sampleLength - mistakeIndexes.length;
+    const accuracy = correctCharsCount / sampleLength;
+    const percentage = (accuracy * 100).toFixed(2);
+    setPrevSampleAccuracy(parseFloat(percentage));
+  }, [mistakeIndexes.length, sample.length]);
+
   const handleEndOfSample = useCallback(() => {
     getWpm();
-    // stats.addWpmEntry(wpm);
+    getAccuracy();
     setSample(getSample());
     setCurrentCharIndex(0);
     setMistakeIndexes([]);
-  }, [getSample, getWpm]);
+  }, [getSample, getWpm, getAccuracy]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -145,6 +154,7 @@ export default function Practice() {
       </Head>
       <h1>Practice</h1>
       <p>Speed: {prevSampleWPM}</p>
+      <p>Accuracy: {prevSampleAccuracy}%</p>
       <TextBoard
         sample={sample}
         mistakeIndexes={mistakeIndexes}
