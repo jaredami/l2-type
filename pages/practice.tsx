@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import Keyboard from "../components/Keyboard/Keyboard";
 import TextBoard from "../components/TextBoard/TextBoard";
 
-const SAMPLE_LENGTH = 20;
+const SAMPLE_LENGTH = 5;
 const includeCapitals = false;
 
 function getRandomWords() {
@@ -46,13 +46,13 @@ export default function Practice() {
   const [sampleStartTime, setSampleStartTime] = useState(0);
   const [prevSampleWPM, setPrevSampleWPM] = useState(0);
 
-  useEffect(() => {
-    function getSample() {
-      return getRandomWords().join(" ").replaceAll(" ", "_").split("");
-    }
-
-    setSample(getSample());
+  const getSample = useCallback(() => {
+    return getRandomWords().join(" ").replaceAll(" ", "_").split("");
   }, []);
+
+  useEffect(() => {
+    setSample(getSample());
+  }, [getSample]);
 
   function toggleActiveKeyClass(element: Element | null) {
     if (!element) return;
@@ -105,10 +105,10 @@ export default function Practice() {
   const handleEndOfSample = useCallback(() => {
     getWpm();
     // stats.addWpmEntry(wpm);
-    // sample = getSample();
-    // letterIndex = 0;
-    // mistakeIndexes = [];
-  }, [getWpm]);
+    setSample(getSample());
+    setCurrentCharIndex(0);
+    setMistakeIndexes([]);
+  }, [getSample, getWpm]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
