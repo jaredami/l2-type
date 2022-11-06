@@ -1,7 +1,7 @@
 export default function Keyboard() {
   return (
     <div className="keyboard">
-      <div className="keyboard__row keyboard__row--h1">
+      {/* <div className="keyboard__row keyboard__row--h1">
         <div data-key="Escape" className="key--word">
           <span>esc</span>
         </div>
@@ -44,7 +44,7 @@ export default function Keyboard() {
         <div data-key="n/a" className="key--word">
           <span>pwr</span>
         </div>
-      </div>
+      </div> */}
       <div className="keyboard__row">
         <div className="key--double" data-key="Backquote">
           <div>~</div>
