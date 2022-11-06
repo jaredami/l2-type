@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useState } from "react";
 import styles from "./Nav.module.css";
 
 const MENU = {
@@ -9,13 +8,11 @@ const MENU = {
 };
 
 const Nav = () => {
-  const [activeIdx, setActiveIdx] = useState(-1);
-
   return (
     <header>
       <nav className={styles.nav}>
         <Link href={MENU.home.href}>
-          <li className={[styles.logo, styles.navLink].join(" ")}>
+          <a className={[styles.logo, styles.navLink].join(" ")}>
             <span className={[styles.linkText, styles.logoText].join(" ")}>
               {MENU.home.text}
             </span>
@@ -33,12 +30,12 @@ const Nav = () => {
                 d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"
               />
             </svg>
-          </li>
+          </a>
         </Link>
         <ul className={styles.navList}>
           <li className={styles.navItem}>
             <Link href={MENU.practice.href}>
-              <a href="#" className={styles.navLink}>
+              <a className={styles.navLink}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -57,7 +54,7 @@ const Nav = () => {
               </a>
             </Link>
             <Link href={MENU.settings.href}>
-              <a href="#" className={styles.navLink}>
+              <a className={styles.navLink}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
