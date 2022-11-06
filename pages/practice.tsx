@@ -155,7 +155,7 @@ export default function Practice() {
       </Head>
       <h1>Practice</h1>
       <div>
-        <SampleStats speed={prevSampleWPM} accuracy={prevSampleWPM} />
+        <SampleStats speed={prevSampleWPM} accuracy={prevSampleAccuracy} />
         <TextBoard
           sample={sample}
           mistakeIndexes={mistakeIndexes}
