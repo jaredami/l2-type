@@ -93,23 +93,22 @@ export default function Practice() {
     setSampleStartTime(Date.now());
   }
 
-  // TODO useCallback
-  function handleEndOfSample() {
-    getWpm();
-    // stats.addWpmEntry(wpm);
-    // sample = getSample();
-    // letterIndex = 0;
-    // mistakeIndexes = [];
-  }
-
-  function getWpm() {
+  const getWpm = useCallback(() => {
     const elapsedTime = Date.now() - sampleStartTime;
     const seconds = elapsedTime / 1000;
     const minutes = seconds / 60;
     const roughWpm = sample.length / 5 / minutes;
     const wpm = Math.round(100 * roughWpm) / 100;
     setPrevSampleWPM(wpm);
-  }
+  }, [sample.length, sampleStartTime]);
+
+  const handleEndOfSample = useCallback(() => {
+    getWpm();
+    // stats.addWpmEntry(wpm);
+    // sample = getSample();
+    // letterIndex = 0;
+    // mistakeIndexes = [];
+  }, [getWpm]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -119,7 +118,7 @@ export default function Practice() {
 
       checkIfCorrectKey(event.key);
 
-      if (currentCharIndex === sample.length) {
+      if (currentCharIndex === sample.length - 1) {
         handleEndOfSample();
       }
 
