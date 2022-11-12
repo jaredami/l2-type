@@ -1,12 +1,12 @@
 import React from "react";
-import styles from "./SampleStats.module.css";
+import styles from "./LessonStats.module.css";
 
-interface SampleStatsProps {
+interface LessonStatsProps {
   speed: number;
   accuracy: number;
 }
 
-export default function SampleStats({ speed, accuracy }: SampleStatsProps) {
+export default function LessonStats({ speed, accuracy }: LessonStatsProps) {
   return (
     <div className={styles.container}>
       <span>Speed: {speed}</span>

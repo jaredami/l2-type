@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
 import Keyboard from "../components/Keyboard/Keyboard";
-import SampleStats from "../components/SampleStats/SampleStats";
+import LessonStats from "../components/LessonStats/LessonStats";
 import TextBoard from "../components/TextBoard/TextBoard";
 
 const SAMPLE_LENGTH = 20;
@@ -155,7 +155,7 @@ export default function Practice() {
       </Head>
       <h1>Practice</h1>
       <div>
-        <SampleStats speed={prevSampleWPM} accuracy={prevSampleAccuracy} />
+        <LessonStats speed={prevSampleWPM} accuracy={prevSampleAccuracy} />
         <TextBoard
           sample={sample}
           mistakeIndexes={mistakeIndexes}
