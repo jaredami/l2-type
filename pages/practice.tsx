@@ -4,7 +4,7 @@ import Keyboard from "../components/Keyboard/Keyboard";
 import SampleStats from "../components/SampleStats/SampleStats";
 import TextBoard from "../components/TextBoard/TextBoard";
 
-const SAMPLE_LENGTH = 5;
+const SAMPLE_LENGTH = 20;
 const includeCapitals = false;
 
 function getRandomWords() {
