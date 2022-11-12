@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
 import Keyboard from "../components/Keyboard/Keyboard";
 import LessonStats from "../components/LessonStats/LessonStats";
-import TextBoard from "../components/TextBoard/TextBoard";
+import TextBoard from "../components/LessonBoard/LessonBoard";
 
 const LESSON_WORD_COUNT = 20;
 const includeCapitals = false;
@@ -157,7 +157,7 @@ export default function Practice() {
       <div>
         <LessonStats speed={prevLessonWPM} accuracy={prevLessonAccuracy} />
         <TextBoard
-          sample={lesson}
+          lesson={lesson}
           mistakeIndexes={mistakeIndexes}
           currentCharIndex={currentCharIndex}
         ></TextBoard>

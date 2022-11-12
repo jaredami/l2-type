@@ -1,20 +1,20 @@
 import React from "react";
-import styles from "./TextBoard.module.css";
+import styles from "./LessonBoard.module.css";
 
 interface TextBoardProps {
   currentCharIndex: number;
   mistakeIndexes: number[];
-  sample: string[];
+  lesson: string[];
 }
 
 export default function TextBoard({
-  sample,
+  lesson,
   mistakeIndexes,
   currentCharIndex,
 }: TextBoardProps) {
   return (
     <div className={styles.textBoard}>
-      {sample.map((char, index) => {
+      {lesson.map((char, index) => {
         return (
           <span
             key={`${char}${index}`}
