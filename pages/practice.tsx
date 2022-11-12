@@ -4,12 +4,12 @@ import Keyboard from "../components/Keyboard/Keyboard";
 import LessonStats from "../components/LessonStats/LessonStats";
 import TextBoard from "../components/TextBoard/TextBoard";
 
-const SAMPLE_LENGTH = 20;
+const LESSON_WORD_COUNT = 20;
 const includeCapitals = false;
 
 function getRandomWords() {
   const wordsArr: string[] = [];
-  for (let i = 0; i < SAMPLE_LENGTH; i++) {
+  for (let i = 0; i < LESSON_WORD_COUNT; i++) {
     wordsArr.push(getRandomWord(getRandomNumber(10, 2)));
   }
   return wordsArr;
@@ -41,20 +41,20 @@ function getRandomNumber(upperLimit: number, lowerLimit = 0) {
 }
 
 export default function Practice() {
-  const [sample, setSample] = useState<string[]>([]);
+  const [lesson, setLesson] = useState<string[]>([]);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [mistakeIndexes, setMistakeIndexes] = useState<number[]>([]);
-  const [sampleStartTime, setSampleStartTime] = useState(0);
-  const [prevSampleWPM, setPrevSampleWPM] = useState(0);
-  const [prevSampleAccuracy, setPrevSampleAccuracy] = useState(0);
+  const [lessonStartTime, setLessonStartTime] = useState(0);
+  const [prevLessonWPM, setPrevLessonWPM] = useState(0);
+  const [prevLessonAccuracy, setPrevLessonAccuracy] = useState(0);
 
-  const getSample = useCallback(() => {
+  const getLesson = useCallback(() => {
     return getRandomWords().join(" ").replaceAll(" ", "_").split("");
   }, []);
 
   useEffect(() => {
-    setSample(getSample());
-  }, [getSample]);
+    setLesson(getLesson());
+  }, [getLesson]);
 
   function toggleActiveKeyClass(element: Element | null) {
     if (!element) return;
@@ -73,7 +73,7 @@ export default function Practice() {
 
   const checkIfCorrectKey = useCallback(
     (keyPressed: string) => {
-      const correctChar = sample[currentCharIndex];
+      const correctChar = lesson[currentCharIndex];
       const spaceBarCorrectlyPressed =
         correctChar === "_" && keyPressed === " ";
 
@@ -88,48 +88,48 @@ export default function Practice() {
         }
       }
     },
-    [currentCharIndex, mistakeIndexes, sample]
+    [currentCharIndex, mistakeIndexes, lesson]
   );
 
-  function handleStartOfSample() {
-    setSampleStartTime(Date.now());
+  function handleStartOfLesson() {
+    setLessonStartTime(Date.now());
   }
 
   const getWpm = useCallback(() => {
-    const elapsedTime = Date.now() - sampleStartTime;
+    const elapsedTime = Date.now() - lessonStartTime;
     const seconds = elapsedTime / 1000;
     const minutes = seconds / 60;
-    const roughWpm = sample.length / 5 / minutes;
+    const roughWpm = lesson.length / 5 / minutes;
     const wpm = Math.round(100 * roughWpm) / 100;
-    setPrevSampleWPM(wpm);
-  }, [sample.length, sampleStartTime]);
+    setPrevLessonWPM(wpm);
+  }, [lesson.length, lessonStartTime]);
 
   const getAccuracy = useCallback(() => {
-    const sampleLength = sample.length;
-    const correctCharsCount = sampleLength - mistakeIndexes.length;
-    const accuracy = correctCharsCount / sampleLength;
+    const lessonCharCount = lesson.length;
+    const correctCharsCount = lessonCharCount - mistakeIndexes.length;
+    const accuracy = correctCharsCount / lessonCharCount;
     const percentage = (accuracy * 100).toFixed(2);
-    setPrevSampleAccuracy(parseFloat(percentage));
-  }, [mistakeIndexes.length, sample.length]);
+    setPrevLessonAccuracy(parseFloat(percentage));
+  }, [mistakeIndexes.length, lesson.length]);
 
-  const handleEndOfSample = useCallback(() => {
+  const handleEndOfLesson = useCallback(() => {
     getWpm();
     getAccuracy();
-    setSample(getSample());
+    setLesson(getLesson());
     setCurrentCharIndex(0);
     setMistakeIndexes([]);
-  }, [getSample, getWpm, getAccuracy]);
+  }, [getLesson, getWpm, getAccuracy]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (currentCharIndex === 0) {
-        handleStartOfSample();
+        handleStartOfLesson();
       }
 
       checkIfCorrectKey(event.key);
 
-      if (currentCharIndex === sample.length - 1) {
-        handleEndOfSample();
+      if (currentCharIndex === lesson.length - 1) {
+        handleEndOfLesson();
       }
 
       toggleActiveKeyClass(getKeyElement(event));
@@ -146,7 +146,7 @@ export default function Practice() {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
     };
-  }, [checkIfCorrectKey, currentCharIndex, handleEndOfSample, sample.length]);
+  }, [checkIfCorrectKey, currentCharIndex, handleEndOfLesson, lesson.length]);
 
   return (
     <>
@@ -155,9 +155,9 @@ export default function Practice() {
       </Head>
       <h1>Practice</h1>
       <div>
-        <LessonStats speed={prevSampleWPM} accuracy={prevSampleAccuracy} />
+        <LessonStats speed={prevLessonWPM} accuracy={prevLessonAccuracy} />
         <TextBoard
-          sample={sample}
+          sample={lesson}
           mistakeIndexes={mistakeIndexes}
           currentCharIndex={currentCharIndex}
         ></TextBoard>
