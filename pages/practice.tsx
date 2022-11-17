@@ -1,46 +1,14 @@
 import Head from "next/head";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Keyboard from "../components/Keyboard/Keyboard";
 import LessonStats from "../components/LessonStats/LessonStats";
 import TextBoard from "../components/LessonBoard/LessonBoard";
+import { SettingsContext } from "../contexts/SettingsContext";
 
 const LESSON_WORD_COUNT = 20;
-const includeCapitals = false;
-
-function getRandomWords() {
-  const wordsArr: string[] = [];
-  for (let i = 0; i < LESSON_WORD_COUNT; i++) {
-    wordsArr.push(getRandomWord(getRandomNumber(10, 2)));
-  }
-  return wordsArr;
-}
-
-function getRandomWord(wordLength = 10) {
-  let consonants = "bcdfghjlmnpqrstv".split("");
-  let vowels = "aeiou".split("");
-  let word = "";
-  let length = parseInt(wordLength.toString(), 10);
-
-  for (let i = 0; i < length / 2; i++) {
-    const randConsonant = consonants[getRandomNumber(consonants.length)];
-    const randVowel = vowels[getRandomNumber(vowels.length)];
-
-    if (includeCapitals) {
-      word += i === 0 ? randConsonant.toUpperCase() : randConsonant;
-    } else {
-      word += i === 0 ? randConsonant : randConsonant;
-    }
-    word += i * 2 < length - 1 ? randVowel : "";
-  }
-
-  return word;
-}
-
-function getRandomNumber(upperLimit: number, lowerLimit = 0) {
-  return Math.floor(Math.random() * upperLimit) + lowerLimit;
-}
 
 export default function Practice() {
+  const settings = useContext(SettingsContext);
   const [lesson, setLesson] = useState<string[]>([]);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [mistakeIndexes, setMistakeIndexes] = useState<number[]>([]);
@@ -48,13 +16,50 @@ export default function Practice() {
   const [prevLessonWPM, setPrevLessonWPM] = useState(0);
   const [prevLessonAccuracy, setPrevLessonAccuracy] = useState(0);
 
-  const getLesson = useCallback(() => {
-    return getRandomWords().join(" ").replaceAll(" ", "_").split("");
+  const getRandomNumber = useCallback((upperLimit: number, lowerLimit = 0) => {
+    return Math.floor(Math.random() * upperLimit) + lowerLimit;
   }, []);
 
+  const getRandomWord = useCallback(
+    (wordLength = 10) => {
+      let consonants = "bcdfghjlmnpqrstv".split("");
+      let vowels = "aeiou".split("");
+      let word = "";
+      let length = parseInt(wordLength.toString(), 10);
+
+      for (let i = 0; i < length / 2; i++) {
+        const randConsonant = consonants[getRandomNumber(consonants.length)];
+        const randVowel = vowels[getRandomNumber(vowels.length)];
+
+        if (settings?.includeCapitals) {
+          word += i === 0 ? randConsonant.toUpperCase() : randConsonant;
+        } else {
+          word += i === 0 ? randConsonant : randConsonant;
+        }
+        word += i * 2 < length - 1 ? randVowel : "";
+      }
+
+      return word;
+    },
+    [getRandomNumber, settings]
+  );
+
+  const getRandomWords = useCallback(() => {
+    const wordsArr: string[] = [];
+    for (let i = 0; i < LESSON_WORD_COUNT; i++) {
+      wordsArr.push(getRandomWord(getRandomNumber(10, 2)));
+    }
+    return wordsArr;
+  }, [getRandomWord, getRandomNumber]);
+
+  const getLesson = useCallback(() => {
+    return getRandomWords().join(" ").replaceAll(" ", "_").split("");
+  }, [getRandomWords]);
+
   useEffect(() => {
+    if (!settings) return;
     setLesson(getLesson());
-  }, [getLesson]);
+  }, [getLesson, settings]);
 
   function toggleActiveKeyClass(element: Element | null) {
     if (!element) return;
