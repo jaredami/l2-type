@@ -5,7 +5,6 @@ import styles from "./SettingsControls.module.css";
 export default function Settings() {
   // TODO destructure stuff out of context
   const settings = useContext(SettingsContext);
-  // TODO toggle includeCapital instead of setting to true
   return (
     settings && (
       <>
@@ -14,7 +13,9 @@ export default function Settings() {
           <input
             type="checkbox"
             checked={settings.includeCapitals}
-            onChange={() => settings.setIncludeCapitals(true)}
+            onChange={() =>
+              settings.setIncludeCapitals(!settings.includeCapitals)
+            }
           />
           <span className={styles.slider}></span>
         </label>
