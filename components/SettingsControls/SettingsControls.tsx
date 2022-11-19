@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { SettingsContext } from "../../contexts/SettingsContext";
 import styles from "./SettingsControls.module.css";
 
