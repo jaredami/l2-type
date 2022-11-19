@@ -1,11 +1,14 @@
 :root {
   /* --color-accent: #4bf2b3; */
   --color-accent: #40e8e5;
+  --color-accent-dark: #36aaa6;
+  --color-accent-dark-transparent: #36aaa650;
   --color-black: #08070a;
   --color-gray-darker: #141418;
   --color-gray-dark: #23232e;
   --color-gray-medium: #898989;
   --color-gray: #b6b6b6;
+  /* TODO: rename --color-gray-light */
   --color-light-gray: #ececec;
   --color-white: #f6f6f6;
 
