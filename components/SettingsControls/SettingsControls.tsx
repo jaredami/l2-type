@@ -2,13 +2,18 @@ import { useContext, useState } from "react";
 import { SettingsContext } from "../../contexts/SettingsContext";
 import styles from "./SettingsControls.module.css";
 
-const WORDS_MAX = 10;
+const WORDS_MIN = 5;
+const WORDS_MAX = 30;
 
 export default function Settings() {
   const settings = useContext(SettingsContext);
   const [wordsPerLesson, setWordsPerLesson] = useState(0);
   const getWordsPerLessonBackgroundSize = () => {
-    return { backgroundSize: `${(wordsPerLesson * 100) / WORDS_MAX}% 100%` };
+    return {
+      backgroundSize: `${
+        (wordsPerLesson * 100) / (WORDS_MAX + WORDS_MIN)
+      }% 100%`,
+    };
   };
 
   return (
@@ -30,7 +35,11 @@ export default function Settings() {
           <span className={styles.statLabel}>Words Per Lesson:</span>
           <span> {wordsPerLesson}</span>
         </div>
-        <div className={styles.range__slider} data-min="0" data-max={WORDS_MAX}>
+        <div
+          className={styles.range__slider}
+          data-min={WORDS_MIN}
+          data-max={WORDS_MAX}
+        >
           {/* <div className="length range__slider" data-min="4" data-max="32"> */}
           {/* <div className="length__title field-title" data-length="0">
             length:
@@ -39,7 +48,7 @@ export default function Settings() {
           <input
             className={styles.rangeSlider}
             type="range"
-            min="0"
+            min={WORDS_MIN}
             max={WORDS_MAX}
             onChange={(e) => setWordsPerLesson(parseInt(e.target.value))}
             style={getWordsPerLessonBackgroundSize()}
