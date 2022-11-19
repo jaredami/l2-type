@@ -10,10 +10,12 @@ export default function Settings() {
 
   const getWordsPerLessonBackgroundSize = () => {
     if (!settings) return;
+
+    const numerator = settings.wordsPerLesson - WORDS_MIN;
+    const denominator = WORDS_MAX - WORDS_MIN;
+    const widthPercentage = (numerator / denominator) * 100;
     return {
-      backgroundSize: `${
-        (settings.wordsPerLesson * 100) / (WORDS_MAX + WORDS_MIN)
-      }% 100%`,
+      backgroundSize: `${widthPercentage}% 100%`,
     };
   };
 
