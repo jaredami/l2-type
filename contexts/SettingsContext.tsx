@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { WORDS_MIN } from "../components/SettingsControls/SettingsControls";
 
 interface SettingsContextInterface {
   includeCapitals: boolean;
@@ -20,7 +21,7 @@ export function SettingsProvider({
   children: JSX.Element | JSX.Element[];
 }) {
   const [includeCapitals, setIncludeCapitals] = useState(false);
-  const [wordsPerLesson, setWordsPerLesson] = useState(0);
+  const [wordsPerLesson, setWordsPerLesson] = useState(WORDS_MIN);
 
   const value = {
     includeCapitals,

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { SettingsContext } from "../../contexts/SettingsContext";
 import styles from "./SettingsControls.module.css";
 
-const WORDS_MIN = 5;
+export const WORDS_MIN = 5;
 const WORDS_MAX = 30;
 
 export default function Settings() {
