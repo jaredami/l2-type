@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { useCallback, useContext, useEffect, useState } from "react";
 import Keyboard from "../components/Keyboard/Keyboard";
-import LessonStats from "../components/LessonStats/LessonStats";
 import TextBoard from "../components/LessonBoard/LessonBoard";
+import LessonStats from "../components/LessonStats/LessonStats";
 import { SettingsContext } from "../contexts/SettingsContext";
 
 const LESSON_WORD_COUNT = 20;
