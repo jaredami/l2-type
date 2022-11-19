@@ -27,8 +27,8 @@
   right: 0;
   bottom: 0;
   background-color: var(--color-gray);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: var(--transition-speed);
+  transition: var(--transition-speed);
   border-radius: 34px;
 }
 
@@ -40,8 +40,8 @@
   left: 4px;
   bottom: 3px;
   background-color: var(--color-white);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: var(--transition-speed);
+  transition: var(--transition-speed);
   border-radius: 50%;
 }
 
