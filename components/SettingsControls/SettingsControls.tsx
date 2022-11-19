@@ -7,11 +7,12 @@ const WORDS_MAX = 30;
 
 export default function Settings() {
   const settings = useContext(SettingsContext);
-  const [wordsPerLesson, setWordsPerLesson] = useState(0);
+
   const getWordsPerLessonBackgroundSize = () => {
+    if (!settings) return;
     return {
       backgroundSize: `${
-        (wordsPerLesson * 100) / (WORDS_MAX + WORDS_MIN)
+        (settings.wordsPerLesson * 100) / (WORDS_MAX + WORDS_MIN)
       }% 100%`,
     };
   };
@@ -33,7 +34,7 @@ export default function Settings() {
 
         <div className={styles.statHeadingContainer}>
           <span className={styles.statLabel}>Words Per Lesson:</span>
-          <span> {wordsPerLesson}</span>
+          <span> {settings.wordsPerLesson}</span>
         </div>
         <div
           className={styles.range__slider}
@@ -50,9 +51,11 @@ export default function Settings() {
             type="range"
             min={WORDS_MIN}
             max={WORDS_MAX}
-            onChange={(e) => setWordsPerLesson(parseInt(e.target.value))}
+            onChange={(event) =>
+              settings.setWordsPerLesson(parseInt(event.target.value))
+            }
             style={getWordsPerLessonBackgroundSize()}
-            value={wordsPerLesson}
+            value={settings.wordsPerLesson}
           />
         </div>
       </div>
