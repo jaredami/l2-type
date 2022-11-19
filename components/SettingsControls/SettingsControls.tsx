@@ -23,7 +23,7 @@ export default function Settings() {
     settings && (
       <div>
         <p className={styles.statLabel}>Include Capital Letters:</p>
-        <label className={styles.switch}>
+        <label className={styles.toggle}>
           <input
             type="checkbox"
             checked={settings.includeCapitals}
@@ -31,7 +31,7 @@ export default function Settings() {
               settings.setIncludeCapitals(!settings.includeCapitals)
             }
           />
-          <span className={styles.slider}></span>
+          <span className={styles.toggleSlider}></span>
         </label>
 
         <div className={styles.statHeadingContainer}>
@@ -39,15 +39,10 @@ export default function Settings() {
           <span> {settings.wordsPerLesson}</span>
         </div>
         <div
-          className={styles.range__slider}
+          className={styles.rangeSliderContainer}
           data-min={WORDS_MIN}
           data-max={WORDS_MAX}
         >
-          {/* <div className="length range__slider" data-min="4" data-max="32"> */}
-          {/* <div className="length__title field-title" data-length="0">
-            length:
-          </div> */}
-          {/* <input id="slider" type="range" min="4" max="32" value="30" /> */}
           <input
             className={styles.rangeSlider}
             type="range"
