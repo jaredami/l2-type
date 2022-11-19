@@ -46,7 +46,7 @@
 .keyboard__row > div:active,
 .keyboard__row > div.active-key {
   background: var(--color-gray-darker);
-  color: var(--color-light-gray);
+  color: var(--color-gray-light);
   position: relative;
   top: 0.2em;
 }

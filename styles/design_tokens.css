@@ -8,8 +8,7 @@
   --color-gray-dark: #23232e;
   --color-gray-medium: #898989;
   --color-gray: #b6b6b6;
-  /* TODO: rename --color-gray-light */
-  --color-light-gray: #ececec;
+  --color-gray-light: #ececec;
   --color-white: #f6f6f6;
 
   --transition-speed: 300ms;
