@@ -24,12 +24,9 @@ export function StatsProvider({
   useEffect(() => {
     if (!wpmEntries.length) return;
 
-    // TODO refactor
-    const avgWpm =
-      wpmEntries.length &&
-      Math.round(
-        (100 * wpmEntries.reduce((wpm, sum) => wpm + sum)) / wpmEntries.length
-      ) / 100;
+    const preciseAvgWpm =
+      (100 * wpmEntries.reduce((wpm, sum) => wpm + sum)) / wpmEntries.length;
+    const avgWpm = Math.round(preciseAvgWpm) / 100;
     setAverageWpm(avgWpm);
   }, [wpmEntries]);
 
