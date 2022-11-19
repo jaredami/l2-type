@@ -4,9 +4,12 @@ import Keyboard from "../components/Keyboard/Keyboard";
 import TextBoard from "../components/LessonBoard/LessonBoard";
 import LessonStats from "../components/LessonStats/LessonStats";
 import { SettingsContext } from "../contexts/SettingsContext";
+import { StatsContext } from "../contexts/StatsContext";
 
 export default function Practice() {
   const settings = useContext(SettingsContext);
+  const stats = useContext(StatsContext);
+
   const [lesson, setLesson] = useState<string[]>([]);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [mistakeIndexes, setMistakeIndexes] = useState<number[]>([]);
@@ -105,7 +108,7 @@ export default function Practice() {
     const minutes = seconds / 60;
     const preciseWpm = lesson.length / 5 / minutes;
     const wpm = Math.round(100 * preciseWpm) / 100;
-    setPrevLessonWPM(wpm);
+    return wpm;
   }, [lesson.length, lessonStartTime]);
 
   const getAccuracy = useCallback(() => {
@@ -113,16 +116,21 @@ export default function Practice() {
     const correctCharsCount = lessonCharCount - mistakeIndexes.length;
     const accuracy = correctCharsCount / lessonCharCount;
     const percentage = (accuracy * 100).toFixed(2);
-    setPrevLessonAccuracy(parseFloat(percentage));
+    return parseFloat(percentage);
   }, [mistakeIndexes.length, lesson.length]);
 
   const handleEndOfLesson = useCallback(() => {
-    getWpm();
-    getAccuracy();
+    const wpm = getWpm();
+    const accuracy = getAccuracy();
+    setPrevLessonWPM(wpm);
+    setPrevLessonAccuracy(accuracy);
+
+    stats?.setWpmEntries((prev) => [...prev, wpm]);
+
     setLesson(getLesson());
     setCurrentCharIndex(0);
     setMistakeIndexes([]);
-  }, [getLesson, getWpm, getAccuracy]);
+  }, [getLesson, getWpm, getAccuracy, stats]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
