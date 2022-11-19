@@ -5,8 +5,6 @@ import TextBoard from "../components/LessonBoard/LessonBoard";
 import LessonStats from "../components/LessonStats/LessonStats";
 import { SettingsContext } from "../contexts/SettingsContext";
 
-const LESSON_WORD_COUNT = 20;
-
 export default function Practice() {
   const settings = useContext(SettingsContext);
   const [lesson, setLesson] = useState<string[]>([]);
@@ -45,12 +43,13 @@ export default function Practice() {
   );
 
   const getRandomWords = useCallback(() => {
+    const wordCount = settings?.wordsPerLesson ?? 0;
     const wordsArr: string[] = [];
-    for (let i = 0; i < LESSON_WORD_COUNT; i++) {
+    for (let i = 0; i < wordCount; i++) {
       wordsArr.push(getRandomWord(getRandomNumber(10, 2)));
     }
     return wordsArr;
-  }, [getRandomWord, getRandomNumber]);
+  }, [getRandomWord, getRandomNumber, settings?.wordsPerLesson]);
 
   const getLesson = useCallback(() => {
     return getRandomWords().join(" ").replaceAll(" ", "_").split("");
