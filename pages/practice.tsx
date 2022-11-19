@@ -103,8 +103,8 @@ export default function Practice() {
     const elapsedTime = Date.now() - lessonStartTime;
     const seconds = elapsedTime / 1000;
     const minutes = seconds / 60;
-    const roughWpm = lesson.length / 5 / minutes;
-    const wpm = Math.round(100 * roughWpm) / 100;
+    const preciseWpm = lesson.length / 5 / minutes;
+    const wpm = Math.round(100 * preciseWpm) / 100;
     setPrevLessonWPM(wpm);
   }, [lesson.length, lessonStartTime]);
 
