@@ -13,8 +13,8 @@ export default function Settings() {
 
   return (
     settings && (
-      <>
-        <p>Include Capital Letters:</p>
+      <div>
+        <p className={styles.statLabel}>Include Capital Letters:</p>
         <label className={styles.switch}>
           <input
             type="checkbox"
@@ -26,7 +26,10 @@ export default function Settings() {
           <span className={styles.slider}></span>
         </label>
 
-        <p>Words Per Lesson:</p>
+        <div className={styles.statHeadingContainer}>
+          <span className={styles.statLabel}>Words Per Lesson:</span>
+          <span> {wordsPerLesson}</span>
+        </div>
         <div className={styles.range__slider} data-min="0" data-max={WORDS_MAX}>
           {/* <div className="length range__slider" data-min="4" data-max="32"> */}
           {/* <div className="length__title field-title" data-length="0">
@@ -43,7 +46,7 @@ export default function Settings() {
             value={wordsPerLesson}
           />
         </div>
-      </>
+      </div>
     )
   );
 }
