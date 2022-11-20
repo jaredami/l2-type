@@ -6,6 +6,7 @@ interface StatsContextInterface {
   setAccuracyEntries: React.Dispatch<React.SetStateAction<number[]>>;
   averageAccuracy: number;
   getTotalLessonsCount(): number;
+  getTopSpeed(): number;
 }
 
 export const StatsContext = React.createContext<StatsContextInterface | null>(
@@ -49,12 +50,21 @@ export function StatsProvider({
     return wpmEntries.length;
   }
 
+  function getTopSpeed() {
+    if (!wpmEntries.length) return 0;
+    return wpmEntries.reduce((topSpeed, item): number => {
+      if (item > topSpeed) topSpeed = item;
+      return topSpeed;
+    });
+  }
+
   const value = {
     setWpmEntries,
     averageWpm,
     setAccuracyEntries,
     averageAccuracy,
     getTotalLessonsCount,
+    getTopSpeed,
   };
 
   return (

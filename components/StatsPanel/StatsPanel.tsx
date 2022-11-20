@@ -21,7 +21,7 @@ export default function StatsPanel() {
         </div>
         <div className={styles.statContainer}>
           <p className={styles.statLabel}>Top Speed</p>
-          <p>--</p>
+          <p>{stats.getTopSpeed()}</p>
         </div>
       </div>
     )
