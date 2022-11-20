@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 interface StatsContextInterface {
   setWpmEntries: React.Dispatch<React.SetStateAction<number[]>>;
   averageWpm: number;
+  setAccuracyEntries: React.Dispatch<React.SetStateAction<number[]>>;
+  averageAccuracy: number;
 }
 
 export const StatsContext = React.createContext<StatsContextInterface | null>(
@@ -20,6 +22,8 @@ export function StatsProvider({
 }) {
   const [wpmEntries, setWpmEntries] = useState<number[]>([]);
   const [averageWpm, setAverageWpm] = useState(0);
+  const [accuracyEntries, setAccuracyEntries] = useState<number[]>([]);
+  const [averageAccuracy, setAverageAccuracy] = useState(0);
 
   useEffect(() => {
     if (!wpmEntries.length) return;
@@ -30,9 +34,21 @@ export function StatsProvider({
     setAverageWpm(avgWpm);
   }, [wpmEntries]);
 
+  useEffect(() => {
+    if (!accuracyEntries.length) return;
+
+    const preciseAvgAccuracy =
+      (100 * accuracyEntries.reduce((accuracy, sum) => accuracy + sum)) /
+      accuracyEntries.length;
+    const avgAccuracy = Math.round(preciseAvgAccuracy) / 100;
+    setAverageAccuracy(avgAccuracy);
+  }, [accuracyEntries]);
+
   const value = {
     setWpmEntries,
     averageWpm,
+    setAccuracyEntries,
+    averageAccuracy,
   };
 
   return (
