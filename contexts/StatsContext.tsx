@@ -5,6 +5,7 @@ interface StatsContextInterface {
   averageWpm: number;
   setAccuracyEntries: React.Dispatch<React.SetStateAction<number[]>>;
   averageAccuracy: number;
+  getTotalLessonsCount(): number;
 }
 
 export const StatsContext = React.createContext<StatsContextInterface | null>(
@@ -44,11 +45,16 @@ export function StatsProvider({
     setAverageAccuracy(avgAccuracy);
   }, [accuracyEntries]);
 
+  function getTotalLessonsCount() {
+    return wpmEntries.length;
+  }
+
   const value = {
     setWpmEntries,
     averageWpm,
     setAccuracyEntries,
     averageAccuracy,
+    getTotalLessonsCount,
   };
 
   return (

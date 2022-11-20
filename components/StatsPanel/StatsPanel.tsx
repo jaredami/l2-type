@@ -17,7 +17,7 @@ export default function StatsPanel() {
         </div>
         <div className={styles.statContainer}>
           <p className={styles.statLabel}>Total Lessons</p>
-          <p>--</p>
+          <p>{stats.getTotalLessonsCount()}</p>
         </div>
         <div className={styles.statContainer}>
           <p className={styles.statLabel}>Top Speed</p>
