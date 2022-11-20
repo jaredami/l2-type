@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 
 interface StatsContextInterface {
   setWpmEntries: React.Dispatch<React.SetStateAction<number[]>>;
-  averageWpm: number;
   setAccuracyEntries: React.Dispatch<React.SetStateAction<number[]>>;
-  averageAccuracy: number;
+  getAverageWpm(): number;
+  getAverageAccuracy(): number;
   getTotalLessonsCount(): number;
   getTopSpeed(): number;
 }
@@ -30,21 +30,17 @@ export function StatsProvider({
   children: JSX.Element | JSX.Element[];
 }) {
   const [wpmEntries, setWpmEntries] = useState<number[]>([]);
-  const [averageWpm, setAverageWpm] = useState(0);
   const [accuracyEntries, setAccuracyEntries] = useState<number[]>([]);
-  const [averageAccuracy, setAverageAccuracy] = useState(0);
 
-  useEffect(() => {
-    if (!wpmEntries.length) return;
+  function getAverageWpm() {
+    if (!wpmEntries.length) return 0;
+    return getAverage(wpmEntries);
+  }
 
-    setAverageWpm(getAverage(wpmEntries));
-  }, [wpmEntries]);
-
-  useEffect(() => {
-    if (!accuracyEntries.length) return;
-
-    setAverageAccuracy(getAverage(accuracyEntries));
-  }, [accuracyEntries]);
+  function getAverageAccuracy() {
+    if (!accuracyEntries.length) return 0;
+    return getAverage(accuracyEntries);
+  }
 
   function getTotalLessonsCount() {
     return wpmEntries.length;
@@ -60,9 +56,9 @@ export function StatsProvider({
 
   const value = {
     setWpmEntries,
-    averageWpm,
     setAccuracyEntries,
-    averageAccuracy,
+    getAverageWpm,
+    getAverageAccuracy,
     getTotalLessonsCount,
     getTopSpeed,
   };
