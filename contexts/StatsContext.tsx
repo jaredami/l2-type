@@ -17,6 +17,13 @@ export function useStatsContext() {
   return useContext(StatsContext);
 }
 
+const getAverage = (items: number[]) => {
+  const preciseAvg =
+    (100 * items.reduce((total, item) => total + item)) / items.length;
+  const avg = Math.round(preciseAvg) / 100;
+  return avg;
+};
+
 export function StatsProvider({
   children,
 }: {
@@ -30,20 +37,13 @@ export function StatsProvider({
   useEffect(() => {
     if (!wpmEntries.length) return;
 
-    const preciseAvgWpm =
-      (100 * wpmEntries.reduce((wpm, sum) => wpm + sum)) / wpmEntries.length;
-    const avgWpm = Math.round(preciseAvgWpm) / 100;
-    setAverageWpm(avgWpm);
+    setAverageWpm(getAverage(wpmEntries));
   }, [wpmEntries]);
 
   useEffect(() => {
     if (!accuracyEntries.length) return;
 
-    const preciseAvgAccuracy =
-      (100 * accuracyEntries.reduce((accuracy, sum) => accuracy + sum)) /
-      accuracyEntries.length;
-    const avgAccuracy = Math.round(preciseAvgAccuracy) / 100;
-    setAverageAccuracy(avgAccuracy);
+    setAverageAccuracy(getAverage(accuracyEntries));
   }, [accuracyEntries]);
 
   function getTotalLessonsCount() {
