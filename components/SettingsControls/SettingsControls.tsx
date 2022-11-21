@@ -21,39 +21,43 @@ export default function Settings() {
 
   return (
     settings && (
-      <div>
-        <p className={styles.settingLabel}>Include Capital Letters:</p>
-        <label className={styles.toggle}>
-          <input
-            type="checkbox"
-            checked={settings.includeCapitals}
-            onChange={() =>
-              settings.setIncludeCapitals(!settings.includeCapitals)
-            }
-          />
-          <span className={styles.toggleSlider}></span>
-        </label>
-
-        <div className={styles.settingHeadingContainer}>
-          <span className={styles.settingLabel}>Words Per Lesson:</span>
-          <span> {settings.wordsPerLesson}</span>
+      <div className={styles.settingsContainer}>
+        <div>
+          <p className={styles.settingLabel}>Include Capital Letters:</p>
+          <label className={styles.toggle}>
+            <input
+              type="checkbox"
+              checked={settings.includeCapitals}
+              onChange={() =>
+                settings.setIncludeCapitals(!settings.includeCapitals)
+              }
+            />
+            <span className={styles.toggleSlider}></span>
+          </label>
         </div>
-        <div
-          className={styles.rangeSliderContainer}
-          data-min={WORDS_MIN}
-          data-max={WORDS_MAX}
-        >
-          <input
-            className={styles.rangeSlider}
-            type="range"
-            min={WORDS_MIN}
-            max={WORDS_MAX}
-            onChange={(event) =>
-              settings.setWordsPerLesson(parseInt(event.target.value))
-            }
-            style={getWordsPerLessonBackgroundSize()}
-            value={settings.wordsPerLesson}
-          />
+
+        <div>
+          <div className={styles.settingHeadingContainer}>
+            <span className={styles.settingLabel}>Words Per Lesson:</span>
+            <span> {settings.wordsPerLesson}</span>
+          </div>
+          <div
+            className={styles.rangeSliderContainer}
+            data-min={WORDS_MIN}
+            data-max={WORDS_MAX}
+          >
+            <input
+              className={styles.rangeSlider}
+              type="range"
+              min={WORDS_MIN}
+              max={WORDS_MAX}
+              onChange={(event) =>
+                settings.setWordsPerLesson(parseInt(event.target.value))
+              }
+              style={getWordsPerLessonBackgroundSize()}
+              value={settings.wordsPerLesson}
+            />
+          </div>
         </div>
       </div>
     )
