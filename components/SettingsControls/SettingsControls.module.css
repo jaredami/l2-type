@@ -1,8 +1,8 @@
-.statHeadingContainer {
+.settingHeadingContainer {
   margin: 1rem 0;
 }
 
-.statLabel {
+.settingLabel {
   color: var(--color-gray);
 }
 

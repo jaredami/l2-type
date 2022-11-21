@@ -22,7 +22,7 @@ export default function Settings() {
   return (
     settings && (
       <div>
-        <p className={styles.statLabel}>Include Capital Letters:</p>
+        <p className={styles.settingLabel}>Include Capital Letters:</p>
         <label className={styles.toggle}>
           <input
             type="checkbox"
@@ -34,8 +34,8 @@ export default function Settings() {
           <span className={styles.toggleSlider}></span>
         </label>
 
-        <div className={styles.statHeadingContainer}>
-          <span className={styles.statLabel}>Words Per Lesson:</span>
+        <div className={styles.settingHeadingContainer}>
+          <span className={styles.settingLabel}>Words Per Lesson:</span>
           <span> {settings.wordsPerLesson}</span>
         </div>
         <div
