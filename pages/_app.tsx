@@ -1,6 +1,7 @@
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
+import AuthWrapper from "../components/AuthWrapper/AuthWrapper";
 import Layout from "../components/Layout/Layout";
 import { SettingsProvider } from "../contexts/SettingsContext";
 import { StatsProvider } from "../contexts/StatsContext";
@@ -16,13 +17,15 @@ function MyApp({
 }>) {
   return (
     <SessionProvider session={pageProps.session}>
-      <Layout>
-        <SettingsProvider>
-          <StatsProvider>
-            <Component {...pageProps} />
-          </StatsProvider>
-        </SettingsProvider>
-      </Layout>
+      <AuthWrapper>
+        <Layout>
+          <SettingsProvider>
+            <StatsProvider>
+              <Component {...pageProps} />
+            </StatsProvider>
+          </SettingsProvider>
+        </Layout>
+      </AuthWrapper>
     </SessionProvider>
   );
 }
