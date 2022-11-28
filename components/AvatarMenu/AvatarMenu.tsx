@@ -1,6 +1,7 @@
 import React from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import styles from "./AvatarMenu.module.css";
 
 export default function AvatarMenu() {
   const { data, status } = useSession();
@@ -22,12 +23,7 @@ export default function AvatarMenu() {
       {status === "authenticated" ? (
         <>
           {data.user?.image && data.user.name ? (
-            <div
-              style={{
-                right: "4rem",
-                position: "absolute",
-              }}
-            >
+            <button className={styles.avatarButton}>
               <Image
                 src={data.user.image}
                 alt={data.user.name}
@@ -39,7 +35,7 @@ export default function AvatarMenu() {
                   position: "absolute",
                 }}
               />
-            </div>
+            </button>
           ) : null}
           <button
             style={{

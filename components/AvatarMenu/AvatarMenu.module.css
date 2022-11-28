@@ -1,0 +1,10 @@
+.avatarButton {
+  background: none;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
