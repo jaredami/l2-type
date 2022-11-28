@@ -35,29 +35,13 @@ export default function AvatarMenu() {
           />
         </button>
       ) : null}
-      {status === "authenticated" ? (
-        <>
-          <button
-            style={{
-              right: 0,
-              position: "absolute",
-            }}
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </>
-      ) : (
-        <button
-          style={{
-            right: 0,
-            position: "absolute",
-          }}
-          onClick={handleSignIn}
-        >
-          Sign In
-        </button>
-      )}
+      <div className={styles.avatarMenu}>
+        {status === "authenticated" ? (
+          <button onClick={handleLogout}>Logout</button>
+        ) : (
+          <button onClick={handleSignIn}>Sign In</button>
+        )}
+      </div>
     </>
   );
 }
