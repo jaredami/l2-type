@@ -20,23 +20,23 @@ export default function AvatarMenu() {
 
   return (
     <>
+      {data?.user?.image && data.user.name ? (
+        <button className={styles.avatarButton}>
+          <Image
+            src={data.user.image}
+            alt={data.user.name}
+            width={50}
+            height={50}
+            style={{
+              borderRadius: "50%",
+              right: 0,
+              position: "absolute",
+            }}
+          />
+        </button>
+      ) : null}
       {status === "authenticated" ? (
         <>
-          {data.user?.image && data.user.name ? (
-            <button className={styles.avatarButton}>
-              <Image
-                src={data.user.image}
-                alt={data.user.name}
-                width={50}
-                height={50}
-                style={{
-                  borderRadius: "50%",
-                  right: 0,
-                  position: "absolute",
-                }}
-              />
-            </button>
-          ) : null}
           <button
             style={{
               right: 0,
