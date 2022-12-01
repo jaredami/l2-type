@@ -56,12 +56,15 @@ export default function AvatarMenu() {
             <span className={styles.name}>{data?.user?.name}</span>
             <span className={styles.email}>{data?.user?.email}</span>
           </div>
-          {status === "authenticated" ? (
-            <button onClick={handleLogout}>Logout</button>
-          ) : (
-            <button onClick={handleSignIn}>Sign In</button>
-          )}
+          <button className={styles.logoutBtn} onClick={handleLogout}>
+            Logout
+          </button>
         </div>
+      )}
+      {status === "unauthenticated" && (
+        <button className={styles.signInBtn} onClick={handleSignIn}>
+          Sign In
+        </button>
       )}
     </>
   );
