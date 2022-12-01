@@ -13,8 +13,24 @@
   background: var(--color-gray-dark);
   border-radius: 4px;
   box-shadow: 2px 4px 10px rgb(0 0 0 / 20%);
-  padding: 1rem 2rem;
+  /* padding: 1rem 2rem; */
   position: absolute;
   right: 1rem;
   top: 4rem;
+}
+
+.userInfo {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 2rem 0.5rem;
+}
+
+.name {
+  font-size: 1.2rem;
+}
+
+.email {
+  font-size: 0.8rem;
 }

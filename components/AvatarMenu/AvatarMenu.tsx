@@ -41,19 +41,21 @@ export default function AvatarMenu() {
       ) : null}
       {displayMenu && (
         <div className={styles.avatarMenu}>
-          {data?.user?.image && data.user.name ? (
-            <Image
-              src={data.user.image}
-              alt={data.user.name}
-              width={50}
-              height={50}
-              style={{
-                borderRadius: "50%",
-              }}
-            />
-          ) : null}
-          <p>{data?.user?.name}</p>
-          <p>{data?.user?.email}</p>
+          <div className={styles.userInfo}>
+            {data?.user?.image && data.user.name ? (
+              <Image
+                src={data.user.image}
+                alt={data.user.name}
+                width={70}
+                height={70}
+                style={{
+                  borderRadius: "50%",
+                }}
+              />
+            ) : null}
+            <span className={styles.name}>{data?.user?.name}</span>
+            <span className={styles.email}>{data?.user?.email}</span>
+          </div>
           {status === "authenticated" ? (
             <button onClick={handleLogout}>Logout</button>
           ) : (
