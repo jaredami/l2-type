@@ -1,13 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 interface StatsContextInterface {
-  setWpmEntries: React.Dispatch<React.SetStateAction<number[]>>;
-  setAccuracyEntries: React.Dispatch<React.SetStateAction<number[]>>;
   getAverageWpm(): number;
   getAverageAccuracy(): number;
   getTotalLessonsCount(): number;
   getTopSpeed(): number;
+  setLessons: React.Dispatch<React.SetStateAction<Lesson[]>>;
 }
+
+type Lesson = {
+  wpm: number;
+  accuracy: number;
+};
 
 export const StatsContext = React.createContext<StatsContextInterface | null>(
   null
@@ -29,24 +33,26 @@ export function StatsProvider({
 }: {
   children: JSX.Element | JSX.Element[];
 }) {
-  const [wpmEntries, setWpmEntries] = useState<number[]>([]);
-  const [accuracyEntries, setAccuracyEntries] = useState<number[]>([]);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
 
   function getAverageWpm() {
-    if (!wpmEntries.length) return 0;
+    if (!lessons.length) return 0;
+    const wpmEntries = lessons.map((lesson) => lesson.wpm);
     return getAverage(wpmEntries);
   }
 
   function getAverageAccuracy() {
-    if (!accuracyEntries.length) return 0;
+    if (!lessons.length) return 0;
+    const accuracyEntries = lessons.map((lesson) => lesson.accuracy);
     return getAverage(accuracyEntries);
   }
 
   function getTotalLessonsCount() {
-    return wpmEntries.length;
+    return lessons.length;
   }
 
   function getTopSpeed() {
+    const wpmEntries = lessons.map((lesson) => lesson.wpm);
     if (!wpmEntries.length) return 0;
     return wpmEntries.reduce((topSpeed, item): number => {
       if (item > topSpeed) topSpeed = item;
@@ -55,12 +61,11 @@ export function StatsProvider({
   }
 
   const value = {
-    setWpmEntries,
-    setAccuracyEntries,
     getAverageWpm,
     getAverageAccuracy,
     getTotalLessonsCount,
     getTopSpeed,
+    setLessons,
   };
 
   return (

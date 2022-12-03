@@ -125,8 +125,7 @@ export default function Practice() {
     setPrevLessonWPM(wpm);
     setPrevLessonAccuracy(accuracy);
 
-    stats?.setWpmEntries((prev) => [...prev, wpm]);
-    stats?.setAccuracyEntries((prev) => [...prev, accuracy]);
+    stats?.setLessons((prev) => [...prev, { wpm, accuracy }]);
 
     setLesson(getLesson());
     setCurrentCharIndex(0);
