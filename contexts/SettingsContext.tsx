@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+
 interface SettingsContextInterface {
   includeCapitals: boolean;
   setIncludeCapitals: React.Dispatch<React.SetStateAction<boolean>>;

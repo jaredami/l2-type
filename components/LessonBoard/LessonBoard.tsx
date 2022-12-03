@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./LessonBoard.module.css";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 interface TextBoardProps {
   currentCharIndex: number;
@@ -12,8 +13,9 @@ export default function TextBoard({
   mistakeIndexes,
   currentCharIndex,
 }: TextBoardProps) {
+  const [parent] = useAutoAnimate<HTMLDivElement>();
   return (
-    <div className={styles.textBoard}>
+    <div className={styles.textBoard} ref={parent}>
       {lesson.map((char, index) => {
         return (
           <span
