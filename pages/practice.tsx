@@ -119,13 +119,26 @@ export default function Practice() {
     return parseFloat(percentage);
   }, [mistakeIndexes.length, lesson.length]);
 
-  const handleEndOfLesson = useCallback(() => {
+  const handleEndOfLesson = useCallback(async () => {
     const wpm = getWpm();
     const accuracy = getAccuracy();
     setPrevLessonWPM(wpm);
     setPrevLessonAccuracy(accuracy);
 
-    stats?.setLessons((prev) => [...prev, { wpm, accuracy }]);
+    const lesson = { wpm, accuracy };
+    stats?.setLessons((prev) => [...prev, lesson]);
+
+    // TODO wrap in try/catch
+    await fetch("/api/lessons", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(lesson),
+    }).then((res) => {
+      const resp = res.json();
+      console.log("resp", resp);
+    });
 
     setLesson(getLesson());
     setCurrentCharIndex(0);
