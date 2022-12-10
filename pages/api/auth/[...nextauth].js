@@ -13,5 +13,23 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
+  callbacks: {
+    async jwt({ token, user, account, profile, isNewUser }) {
+      user && (token.user = user);
+      return token;
+    },
+    async session({ session, token, user }) {
+      if (user) {
+        session = {
+          ...session,
+          user: {
+            id: user.id,
+            ...session.user,
+          },
+        };
+        return session;
+      }
+    },
+  },
 };
 export default NextAuth(authOptions);
