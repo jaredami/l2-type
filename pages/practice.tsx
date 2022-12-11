@@ -125,17 +125,17 @@ export default function Practice() {
 
     const lesson = { wpm, accuracy };
 
-    // TODO wrap in try/catch
-    await fetch("/api/lessons", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(lesson),
-    }).then((res) => {
-      const resp = res.json();
-      console.log("resp", resp);
-    });
+    try {
+      await fetch("/api/lessons", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(lesson),
+      });
+    } catch (error) {
+      console.error(error);
+    }
 
     setLesson(getLesson());
     setCurrentCharIndex(0);
