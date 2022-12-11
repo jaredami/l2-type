@@ -1,3 +1,4 @@
+import { Lesson } from "@prisma/client";
 import React, { useContext, useState } from "react";
 
 interface StatsContextInterface {
@@ -7,11 +8,6 @@ interface StatsContextInterface {
   getTopSpeed(): number;
   setLessons: React.Dispatch<React.SetStateAction<Lesson[]>>;
 }
-
-type Lesson = {
-  wpm: number;
-  accuracy: number;
-};
 
 export const StatsContext = React.createContext<StatsContextInterface | null>(
   null

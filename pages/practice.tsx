@@ -4,11 +4,9 @@ import Keyboard from "../components/Keyboard/Keyboard";
 import TextBoard from "../components/LessonBoard/LessonBoard";
 import LessonStats from "../components/LessonStats/LessonStats";
 import { SettingsContext } from "../contexts/SettingsContext";
-import { StatsContext } from "../contexts/StatsContext";
 
 export default function Practice() {
   const settings = useContext(SettingsContext);
-  const stats = useContext(StatsContext);
 
   const [lesson, setLesson] = useState<string[]>([]);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -126,7 +124,6 @@ export default function Practice() {
     setPrevLessonAccuracy(accuracy);
 
     const lesson = { wpm, accuracy };
-    stats?.setLessons((prev) => [...prev, lesson]);
 
     // TODO wrap in try/catch
     await fetch("/api/lessons", {
@@ -143,7 +140,7 @@ export default function Practice() {
     setLesson(getLesson());
     setCurrentCharIndex(0);
     setMistakeIndexes([]);
-  }, [getLesson, getWpm, getAccuracy, stats]);
+  }, [getLesson, getWpm, getAccuracy]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {

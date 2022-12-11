@@ -36,8 +36,38 @@ async function createLesson(
   }
 }
 
+async function getLessons(
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> {
+  try {
+    const session = await getSession({ req });
+
+    if (!session || !session.user) {
+      return res.status(401).json({ unauthorized: true });
+    }
+
+    const lessons = await prisma.lesson.findMany({
+      where: {
+        user: {
+          id: session.user.id,
+        },
+      },
+    });
+
+    res.json(lessons);
+  } catch (error) {
+    console.error(error);
+    res.status(500).end();
+  }
+}
+
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     return createLesson(req, res);
+  }
+
+  if (req.method === "GET") {
+    return getLessons(req, res);
   }
 }
