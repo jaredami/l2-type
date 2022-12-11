@@ -127,3 +127,17 @@ input:checked + .toggleSlider:before {
     left 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     bottom 350ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
+
+.saveButton {
+  background: transparent;
+  border-radius: 4px;
+  border: 2px solid var(--color-white);
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  width: 4rem;
+  font-family: inherit;
+}
+
+.saveButton:hover {
+  background-color: var(--color-gray-dark);
+}

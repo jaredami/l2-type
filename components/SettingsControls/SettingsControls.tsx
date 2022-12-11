@@ -51,14 +51,16 @@ export default function Settings() {
               type="range"
               min={WORDS_MIN}
               max={WORDS_MAX}
-              onChange={(event) =>
-                settings.setWordsPerLesson(parseInt(event.target.value))
-              }
+              onChange={(event) => {
+                console.log("event", event);
+                settings.setWordsPerLesson(parseInt(event.target.value));
+              }}
               style={getWordsPerLessonBackgroundSize()}
               value={settings.wordsPerLesson}
             />
           </div>
         </div>
+        <button className={styles.saveButton}>Save</button>
       </div>
     )
   );
