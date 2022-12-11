@@ -68,10 +68,10 @@ model Lesson {
 }
 
 model Settings {
-  id           String  @id @default(cuid())
-  includeCaps  Boolean @default(value: false)
-  lessonLength Int     @default(value: 20)
-  userId       String  @unique
+  id              String  @id @default(cuid())
+  includeCapitals Boolean @default(value: false)
+  wordsPerLesson  Int     @default(value: 20)
+  userId          String  @unique
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
