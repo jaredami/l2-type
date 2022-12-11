@@ -46,6 +46,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   lessons       Lesson[]
+  settings      Settings?
 }
 
 model VerificationToken {
@@ -62,6 +63,15 @@ model Lesson {
   timestamp DateTime @default(now())
   wpm       Float
   accuracy  Float
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Settings {
+  id           String  @id @default(cuid())
+  includeCaps  Boolean @default(value: false)
+  lessonLength Int     @default(value: 20)
+  userId       String  @unique
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
