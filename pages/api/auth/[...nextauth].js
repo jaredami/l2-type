@@ -14,11 +14,11 @@ export const authOptions = {
     // ...add more providers here
   ],
   callbacks: {
-    async jwt({ token, user, account, profile, isNewUser }) {
+    async jwt({ token, user }) {
       user && (token.user = user);
       return token;
     },
-    async session({ session, token, user }) {
+    async session({ session, user }) {
       if (user) {
         session = {
           ...session,
