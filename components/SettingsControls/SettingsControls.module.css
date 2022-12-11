@@ -1,4 +1,5 @@
 .settingsContainer {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
@@ -79,7 +80,7 @@ input:checked + .toggleSlider:before {
 .rangeSliderContainer::before,
 .rangeSliderContainer::after {
   position: absolute;
-  color: #fff;
+  color: var(--color-white);
   font-size: 0.9rem;
   font-weight: bold;
 }
@@ -132,15 +133,16 @@ input:checked + .toggleSlider:before {
 }
 
 .saveButton {
-  background: transparent;
+  background-color: var(--color-gray-dark);
   border-radius: 4px;
-  border: 2px solid var(--color-white);
+  border: 1px solid var(--color-gray);
+  color: var(--color-white);
   cursor: pointer;
   padding: 0.5rem 1rem;
-  width: 4rem;
   font-family: inherit;
+  font-size: 1rem;
 }
 
 .saveButton:hover {
-  background-color: var(--color-gray-dark);
+  border-color: var(--color-white);
 }
