@@ -36,7 +36,7 @@ async function createLesson(
   }
 }
 
-async function getLessons(
+export async function getLessons(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {

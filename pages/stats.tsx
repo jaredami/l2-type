@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { InferGetServerSidePropsType } from "next";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect } from "react";
 import StatsPanel from "../components/StatsPanel/StatsPanel";
@@ -29,7 +30,21 @@ export default function Stats(
 const prisma = new PrismaClient();
 
 export async function getServerSideProps() {
-  const lessons = await prisma.lesson.findMany();
+  let lessons;
+  try {
+    const session = await getSession();
+
+    lessons = await prisma.lesson.findMany({
+      where: {
+        user: {
+          id: session?.user.id,
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
   return {
     props: { lessons: JSON.parse(JSON.stringify(lessons)) },
   };
