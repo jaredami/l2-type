@@ -19,6 +19,22 @@ export default function Settings() {
     };
   };
 
+  const saveSettings = async () => {
+    if (!settings) return;
+    const { includeCapitals, wordsPerLesson } = settings;
+    try {
+      await fetch("/api/settings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ includeCapitals, wordsPerLesson }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     settings && (
       <div className={styles.settingsContainer}>
@@ -60,7 +76,9 @@ export default function Settings() {
             />
           </div>
         </div>
-        <button className={styles.saveButton}>Save</button>
+        <button className={styles.saveButton} onClick={() => saveSettings()}>
+          Save
+        </button>
       </div>
     )
   );
