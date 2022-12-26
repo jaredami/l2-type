@@ -1,17 +1,18 @@
-import { useContext } from "react";
-import { SettingsContext } from "../../contexts/SettingsContext";
+import { Settings } from "@prisma/client";
+import { useState } from "react";
 import styles from "./SettingsControls.module.css";
 
 export const WORDS_MIN = 5;
 const WORDS_MAX = 30;
 
-export default function Settings() {
-  const settings = useContext(SettingsContext);
+export default function SettingsControls({ settings }: { settings: Settings }) {
+  const [includeCapitals, setIncludeCapitals] = useState(
+    settings.includeCapitals
+  );
+  const [wordsPerLesson, setWordsPerLesson] = useState(settings.wordsPerLesson);
 
   const getWordsPerLessonBackgroundSize = () => {
-    if (!settings) return;
-
-    const numerator = settings.wordsPerLesson - WORDS_MIN;
+    const numerator = wordsPerLesson - WORDS_MIN;
     const denominator = WORDS_MAX - WORDS_MIN;
     const widthPercentage = (numerator / denominator) * 100;
     return {
@@ -20,8 +21,6 @@ export default function Settings() {
   };
 
   const saveSettings = async () => {
-    if (!settings) return;
-    const { includeCapitals, wordsPerLesson } = settings;
     try {
       await fetch("/api/settings", {
         method: "POST",
@@ -36,50 +35,45 @@ export default function Settings() {
   };
 
   return (
-    settings && (
-      <div className={styles.settingsContainer}>
-        <div>
-          <p className={styles.settingLabel}>Include Capital Letters:</p>
-          <label className={styles.toggle}>
-            <input
-              type="checkbox"
-              checked={settings.includeCapitals}
-              onChange={() =>
-                settings.setIncludeCapitals(!settings.includeCapitals)
-              }
-            />
-            <span className={styles.toggleSlider}></span>
-          </label>
-        </div>
-
-        <div>
-          <div className={styles.settingHeadingContainer}>
-            <span className={styles.settingLabel}>Words Per Lesson:</span>
-            <span> {settings.wordsPerLesson}</span>
-          </div>
-          <div
-            className={styles.rangeSliderContainer}
-            data-min={WORDS_MIN}
-            data-max={WORDS_MAX}
-          >
-            <input
-              className={styles.rangeSlider}
-              type="range"
-              min={WORDS_MIN}
-              max={WORDS_MAX}
-              onChange={(event) => {
-                console.log("event", event);
-                settings.setWordsPerLesson(parseInt(event.target.value));
-              }}
-              style={getWordsPerLessonBackgroundSize()}
-              value={settings.wordsPerLesson}
-            />
-          </div>
-        </div>
-        <button className={styles.saveButton} onClick={() => saveSettings()}>
-          Save
-        </button>
+    <div className={styles.settingsContainer}>
+      <div>
+        <p className={styles.settingLabel}>Include Capital Letters:</p>
+        <label className={styles.toggle}>
+          <input
+            type="checkbox"
+            checked={includeCapitals}
+            onChange={() => setIncludeCapitals(!includeCapitals)}
+          />
+          <span className={styles.toggleSlider}></span>
+        </label>
       </div>
-    )
+
+      <div>
+        <div className={styles.settingHeadingContainer}>
+          <span className={styles.settingLabel}>Words Per Lesson:</span>
+          <span> {wordsPerLesson}</span>
+        </div>
+        <div
+          className={styles.rangeSliderContainer}
+          data-min={WORDS_MIN}
+          data-max={WORDS_MAX}
+        >
+          <input
+            className={styles.rangeSlider}
+            type="range"
+            min={WORDS_MIN}
+            max={WORDS_MAX}
+            onChange={(event) => {
+              setWordsPerLesson(parseInt(event.target.value));
+            }}
+            style={getWordsPerLessonBackgroundSize()}
+            value={wordsPerLesson}
+          />
+        </div>
+      </div>
+      <button className={styles.saveButton} onClick={() => saveSettings()}>
+        Save
+      </button>
+    </div>
   );
 }
