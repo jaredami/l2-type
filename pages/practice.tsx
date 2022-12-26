@@ -1,13 +1,15 @@
+import { PrismaClient } from "@prisma/client";
+import { InferGetServerSidePropsType } from "next";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Keyboard from "../components/Keyboard/Keyboard";
 import TextBoard from "../components/LessonBoard/LessonBoard";
 import LessonStats from "../components/LessonStats/LessonStats";
-import { SettingsContext } from "../contexts/SettingsContext";
 
-export default function Practice() {
-  const settings = useContext(SettingsContext);
-
+export default function Practice(
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
   const [lesson, setLesson] = useState<string[]>([]);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [mistakeIndexes, setMistakeIndexes] = useState<number[]>([]);
@@ -30,7 +32,7 @@ export default function Practice() {
         const randConsonant = consonants[getRandomNumber(consonants.length)];
         const randVowel = vowels[getRandomNumber(vowels.length)];
 
-        if (settings?.includeCapitals) {
+        if (props.settings?.includeCapitals) {
           word += i === 0 ? randConsonant.toUpperCase() : randConsonant;
         } else {
           word += i === 0 ? randConsonant : randConsonant;
@@ -40,26 +42,26 @@ export default function Practice() {
 
       return word;
     },
-    [getRandomNumber, settings]
+    [getRandomNumber, props.settings]
   );
 
   const getRandomWords = useCallback(() => {
-    const wordCount = settings?.wordsPerLesson ?? 0;
+    const wordCount = props.settings?.wordsPerLesson ?? 0;
     const wordsArr: string[] = [];
     for (let i = 0; i < wordCount; i++) {
       wordsArr.push(getRandomWord(getRandomNumber(10, 2)));
     }
     return wordsArr;
-  }, [getRandomWord, getRandomNumber, settings?.wordsPerLesson]);
+  }, [getRandomWord, getRandomNumber, props.settings?.wordsPerLesson]);
 
   const getLesson = useCallback(() => {
     return getRandomWords().join(" ").replaceAll(" ", "_").split("");
   }, [getRandomWords]);
 
   useEffect(() => {
-    if (!settings) return;
+    if (!props.settings) return;
     setLesson(getLesson());
-  }, [getLesson, settings]);
+  }, [getLesson, props.settings]);
 
   function toggleActiveKeyClass(element: Element | null) {
     if (!element) return;
@@ -187,4 +189,27 @@ export default function Practice() {
       <Keyboard></Keyboard>
     </>
   );
+}
+
+const prisma = new PrismaClient();
+
+export async function getServerSideProps() {
+  let settings;
+  try {
+    const session = await getSession();
+
+    settings = await prisma.settings.findFirst({
+      where: {
+        user: {
+          id: session?.user.id,
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  return {
+    props: { settings: settings },
+  };
 }
