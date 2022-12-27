@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
+import { z } from "zod";
 import prisma from "../../prisma";
 
 async function createLesson(
@@ -12,26 +13,28 @@ async function createLesson(
     return res.status(401).json({ unauthorized: true });
   }
 
-  // TODO validate with zod
-  // const valid = await LessonSchema.isValid(req.body);
-
-  // if (!valid) {
-  //   return res.status(500).json({ error: "validation error" });
-  // }
-
   const { wpm, accuracy } = req.body;
+  const lessonInput = {
+    userId: session.user.id,
+    wpm,
+    accuracy,
+  };
 
-  const lesson = await prisma.lesson.create({
-    data: {
-      userId: session.user.id,
-      wpm,
-      accuracy,
-    },
+  const lessonInputSchema = z.object({
+    userId: z.string(),
+    wpm: z.number(),
+    accuracy: z.number(),
   });
 
-  if (lesson.id) {
-    res.status(200).json(lesson);
-  } else {
+  try {
+    lessonInputSchema.parse(lessonInput);
+
+    const lesson = await prisma.lesson.create({
+      data: lessonInput,
+    });
+    return res.status(200).json(lesson);
+  } catch (error) {
+    console.log("error", error);
     return res.status(500).json({ error: "something went wrong" });
   }
 }
