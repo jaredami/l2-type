@@ -1,18 +1,24 @@
 import styles from "./LessonBoard.module.css";
 
 interface TextBoardProps {
+  lesson: string[];
+  isLessonInProgress: boolean;
   currentCharIndex: number;
   mistakeIndexes: number[];
-  lesson: string[];
 }
 
 export default function LessonBoard({
   lesson,
-  mistakeIndexes,
+  isLessonInProgress,
   currentCharIndex,
+  mistakeIndexes,
 }: TextBoardProps) {
   return (
-    <div className={styles.board}>
+    <div
+      className={`${styles.board} ${
+        isLessonInProgress ? styles.inProgress : ""
+      }`}
+    >
       {lesson.map((char, index) => {
         return (
           <span

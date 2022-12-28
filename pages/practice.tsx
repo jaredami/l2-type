@@ -16,6 +16,7 @@ export default function Practice(
   const [lessonStartTime, setLessonStartTime] = useState(0);
   const [prevLessonWPM, setPrevLessonWPM] = useState(0);
   const [prevLessonAccuracy, setPrevLessonAccuracy] = useState(0);
+  const [isLessonInProgress, setIsLessonInProgress] = useState(false);
 
   const getRandomNumber = useCallback((upperLimit: number, lowerLimit = 0) => {
     return Math.floor(Math.random() * upperLimit) + lowerLimit;
@@ -100,6 +101,7 @@ export default function Practice(
 
   function handleStartOfLesson() {
     setLessonStartTime(Date.now());
+    setIsLessonInProgress(true);
   }
 
   const getWpm = useCallback(() => {
@@ -139,6 +141,7 @@ export default function Practice(
       console.error(error);
     }
 
+    setIsLessonInProgress(false);
     setLesson(getLesson());
     setCurrentCharIndex(0);
     setMistakeIndexes([]);
@@ -184,6 +187,7 @@ export default function Practice(
           lesson={lesson}
           mistakeIndexes={mistakeIndexes}
           currentCharIndex={currentCharIndex}
+          isLessonInProgress={isLessonInProgress}
         ></LessonBoard>
       </div>
       <Keyboard></Keyboard>
