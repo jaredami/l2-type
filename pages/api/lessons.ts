@@ -20,22 +20,25 @@ async function createLesson(
     accuracy,
   };
 
-  const lessonInputSchema = z.object({
-    userId: z.string(),
-    wpm: z.number(),
-    accuracy: z.number(),
-  });
-
   try {
-    lessonInputSchema.parse(lessonInput);
+    z.object({
+      userId: z.string(),
+      wpm: z.number(),
+      accuracy: z.number(),
+    }).parse(lessonInput);
 
     const lesson = await prisma.lesson.create({
       data: lessonInput,
     });
     return res.status(200).json(lesson);
-  } catch (error) {
-    console.log("error", error);
-    return res.status(500).json({ error: "something went wrong" });
+  } catch (error: any) {
+    console.error(error);
+    if (error instanceof z.ZodError) {
+      return res.status(422).send({ error: error.message });
+    }
+    return res.status(500).json({
+      error: { message: error.message, statusText: "Internal Server Error" },
+    });
   }
 }
 
