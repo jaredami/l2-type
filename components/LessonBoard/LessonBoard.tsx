@@ -6,7 +6,7 @@ interface TextBoardProps {
   lesson: string[];
 }
 
-export default function TextBoard({
+export default function LessonBoard({
   lesson,
   mistakeIndexes,
   currentCharIndex,

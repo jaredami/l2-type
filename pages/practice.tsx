@@ -4,7 +4,7 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
 import Keyboard from "../components/Keyboard/Keyboard";
-import TextBoard from "../components/LessonBoard/LessonBoard";
+import LessonBoard from "../components/LessonBoard/LessonBoard";
 import LessonStats from "../components/LessonStats/LessonStats";
 
 export default function Practice(
@@ -180,11 +180,11 @@ export default function Practice(
       <h1>Practice</h1>
       <div>
         <LessonStats speed={prevLessonWPM} accuracy={prevLessonAccuracy} />
-        <TextBoard
+        <LessonBoard
           lesson={lesson}
           mistakeIndexes={mistakeIndexes}
           currentCharIndex={currentCharIndex}
-        ></TextBoard>
+        ></LessonBoard>
       </div>
       <Keyboard></Keyboard>
     </>
