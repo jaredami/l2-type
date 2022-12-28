@@ -3,6 +3,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Roboto Mono", monospace;
+  color: var(--color-white);
 }
 
 a {
@@ -19,7 +20,7 @@ a {
     color-scheme: dark;
   }
   body {
-    color: white;
+    color: var(--color-white);
     background: var(--color-gray-darker);
   }
 }
