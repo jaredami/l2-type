@@ -7,7 +7,7 @@
 }
 
 .mistake {
-  color: red;
+  color: var(--color-red);
 }
 
 .active {
