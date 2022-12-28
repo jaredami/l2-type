@@ -1,5 +1,5 @@
 import { Settings } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./SettingsControls.module.css";
 
 export const WORDS_MIN = 5;
@@ -10,6 +10,7 @@ export default function SettingsControls({ settings }: { settings: Settings }) {
     settings.includeCapitals
   );
   const [wordsPerLesson, setWordsPerLesson] = useState(settings.wordsPerLesson);
+  const [isDirty, setIsDirty] = useState(false);
 
   const getWordsPerLessonBackgroundSize = () => {
     const numerator = wordsPerLesson - WORDS_MIN;
@@ -19,6 +20,22 @@ export default function SettingsControls({ settings }: { settings: Settings }) {
       backgroundSize: `${widthPercentage}% 100%`,
     };
   };
+
+  useEffect(() => {
+    if (
+      includeCapitals !== settings.includeCapitals ||
+      wordsPerLesson !== settings.wordsPerLesson
+    ) {
+      setIsDirty(true);
+    } else {
+      setIsDirty(false);
+    }
+  }, [
+    includeCapitals,
+    settings.includeCapitals,
+    settings.wordsPerLesson,
+    wordsPerLesson,
+  ]);
 
   const saveSettings = async () => {
     try {
@@ -71,7 +88,11 @@ export default function SettingsControls({ settings }: { settings: Settings }) {
           />
         </div>
       </div>
-      <button className={styles.saveButton} onClick={() => saveSettings()}>
+      <button
+        className={styles.saveButton}
+        onClick={() => saveSettings()}
+        disabled={!isDirty}
+      >
         Save
       </button>
     </div>

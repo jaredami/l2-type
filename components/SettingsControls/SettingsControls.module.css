@@ -135,7 +135,7 @@ input:checked + .toggleSlider:before {
 .saveButton {
   background-color: var(--color-gray-dark);
   border-radius: 4px;
-  border: 1px solid var(--color-gray);
+  border: 1px solid var(--color-white);
   color: var(--color-white);
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -143,6 +143,11 @@ input:checked + .toggleSlider:before {
   font-size: 1rem;
 }
 
-.saveButton:hover {
-  border-color: var(--color-white);
+.saveButton:hover:not(:disabled) {
+  filter: brightness(130%);
+}
+
+.saveButton:disabled {
+  filter: brightness(70%);
+  cursor: default;
 }
