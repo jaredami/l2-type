@@ -12,7 +12,7 @@ export default function LessonBoard({
   currentCharIndex,
 }: TextBoardProps) {
   return (
-    <div className={styles.textBoard}>
+    <div className={styles.board}>
       {lesson.map((char, index) => {
         return (
           <span
