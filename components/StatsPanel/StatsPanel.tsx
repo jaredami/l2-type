@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { StatsContext } from "../../contexts/StatsContext";
 import styles from "./StatsPanel.module.css";
 

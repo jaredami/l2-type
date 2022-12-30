@@ -1,12 +1,12 @@
 import { Lesson } from "@prisma/client";
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 interface StatsContextInterface {
   getAverageWpm(): number;
   getAverageAccuracy(): number;
   getTotalLessonsCount(): number;
   getTopSpeed(): number;
-  setLessons: React.Dispatch<React.SetStateAction<Lesson[]>>;
+  fetchLessons(): void;
 }
 
 export const StatsContext = React.createContext<StatsContextInterface | null>(
@@ -30,6 +30,25 @@ export function StatsProvider({
   children: JSX.Element | JSX.Element[];
 }) {
   const [lessons, setLessons] = useState<Lesson[]>([]);
+
+  const fetchLessons = useCallback(async () => {
+    try {
+      const lessonsData = await fetch("/api/lessons", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const items = await lessonsData.json();
+      setLessons(items);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchLessons();
+  }, [fetchLessons]);
 
   function getAverageWpm() {
     if (!lessons.length) return 0;
@@ -61,7 +80,7 @@ export function StatsProvider({
     getAverageAccuracy,
     getTotalLessonsCount,
     getTopSpeed,
-    setLessons,
+    fetchLessons,
   };
 
   return (

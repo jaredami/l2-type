@@ -2,14 +2,17 @@ import { PrismaClient } from "@prisma/client";
 import { InferGetServerSidePropsType } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Keyboard from "../components/Keyboard/Keyboard";
 import LessonBoard from "../components/LessonBoard/LessonBoard";
 import LessonStats from "../components/LessonStats/LessonStats";
+import { StatsContext } from "../contexts/StatsContext";
 
 export default function Practice(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
+  const stats = useContext(StatsContext);
+
   const [lesson, setLesson] = useState<string[]>([]);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [mistakeIndexes, setMistakeIndexes] = useState<number[]>([]);
@@ -145,7 +148,8 @@ export default function Practice(
     setLesson(getLesson());
     setCurrentCharIndex(0);
     setMistakeIndexes([]);
-  }, [getLesson, getWpm, getAccuracy]);
+    stats?.fetchLessons();
+  }, [getLesson, getWpm, getAccuracy, stats]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
