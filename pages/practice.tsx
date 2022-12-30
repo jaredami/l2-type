@@ -2,16 +2,16 @@ import { PrismaClient } from "@prisma/client";
 import { InferGetServerSidePropsType } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Keyboard from "../components/Keyboard/Keyboard";
 import LessonBoard from "../components/LessonBoard/LessonBoard";
 import LessonStats from "../components/LessonStats/LessonStats";
-import { StatsContext } from "../contexts/StatsContext";
+import { useStatsContext } from "../contexts/StatsContext";
 
 export default function Practice(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
-  const stats = useContext(StatsContext);
+  const stats = useStatsContext();
 
   const [lesson, setLesson] = useState<string[]>([]);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -148,7 +148,7 @@ export default function Practice(
     setLesson(getLesson());
     setCurrentCharIndex(0);
     setMistakeIndexes([]);
-    stats?.fetchLessons();
+    stats.fetchLessons();
   }, [getLesson, getWpm, getAccuracy, stats]);
 
   useEffect(() => {

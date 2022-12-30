@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { StatsContext } from "../../contexts/StatsContext";
+import { useStatsContext } from "../../contexts/StatsContext";
 import styles from "./StatsPanel.module.css";
 
 export default function StatsPanel() {
-  const stats = useContext(StatsContext);
+  const stats = useStatsContext();
   return (
     stats && (
       <div className={styles.statsContainer}>

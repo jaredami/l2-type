@@ -14,7 +14,11 @@ export const StatsContext = React.createContext<StatsContextInterface | null>(
 );
 
 export function useStatsContext() {
-  return useContext(StatsContext);
+  const context = useContext(StatsContext);
+  if (!context) {
+    throw new Error(`useStatsContext must be used within a StatsProvider`);
+  }
+  return context;
 }
 
 const getAverage = (items: number[]) => {
