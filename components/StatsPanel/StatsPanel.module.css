@@ -6,7 +6,7 @@
 }
 
 .statContainer {
-  border: 2px solid var(--color-gray);
+  /* border: 2px solid var(--color-gray); */
   padding: 1rem;
   border-radius: 4px;
   width: 12rem;
@@ -17,4 +17,39 @@
 
 .statLabel {
   color: var(--color-gray);
+}
+
+.gradientAnimation {
+  --borderWidth: 3px;
+  position: relative;
+  border-radius: var(--borderWidth);
+  background-color: #1d1f20;
+}
+
+.gradientAnimation:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  height: calc(100% + var(--borderWidth) * 3);
+  width: calc(100% + var(--borderWidth) * 3);
+  background-color: #ffe53b;
+  background-image: linear-gradient(60deg, #ffe53b 0%, #ff2525 74%);
+  background-size: 300% 300%;
+  border-radius: var(--borderWidth);
+  animation: gradientAnimation 3s ease alternate infinite;
+  top: -5px;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 150%;
+  }
+
+  50% {
+    background-position: 150% 300%;
+  }
+
+  100% {
+    background-position: 300% 0%;
+  }
 }

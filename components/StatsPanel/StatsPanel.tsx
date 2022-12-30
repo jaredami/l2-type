@@ -6,7 +6,9 @@ export default function StatsPanel() {
   return (
     stats && (
       <div className={styles.statsContainer}>
-        <div className={styles.statContainer}>
+        <div
+          className={[styles.statContainer, styles.gradientAnimation].join(" ")}
+        >
           <p className={styles.statLabel}>Average Speed</p>
           <p>{stats.getAverageWpm()} wpm</p>
         </div>
