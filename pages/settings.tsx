@@ -13,7 +13,6 @@ export default function Settings(
         <Head>
           <title>Settings - L2Type</title>
         </Head>
-        <h1>Settings</h1>
         <SettingsControls settings={props.settings} />
       </>
     )

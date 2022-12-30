@@ -184,7 +184,6 @@ export default function Practice(
       <Head>
         <title>Practice - L2Type</title>
       </Head>
-      <h1>Practice</h1>
       <div>
         <LessonStats speed={prevLessonWPM} accuracy={prevLessonAccuracy} />
         <LessonBoard

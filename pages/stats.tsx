@@ -7,7 +7,6 @@ export default function Stats() {
       <Head>
         <title>Stats - L2Type</title>
       </Head>
-      <h1>Stats</h1>
       <StatsPanel />
     </>
   );
