@@ -12,15 +12,21 @@ export default function StatsPanel() {
           <p className={styles.statLabel}>Average Speed</p>
           <p>{stats.getAverageWpm()} wpm</p>
         </div>
-        <div className={styles.statContainer}>
+        <div
+          className={[styles.statContainer, styles.gradientAnimation].join(" ")}
+        >
           <p className={styles.statLabel}>Average Accuracy</p>
           <p>{stats.getAverageAccuracy()}%</p>
         </div>
-        <div className={styles.statContainer}>
+        <div
+          className={[styles.statContainer, styles.gradientAnimation].join(" ")}
+        >
           <p className={styles.statLabel}>Total Lessons</p>
           <p>{stats.getTotalLessonsCount()}</p>
         </div>
-        <div className={styles.statContainer}>
+        <div
+          className={[styles.statContainer, styles.gradientAnimation].join(" ")}
+        >
           <p className={styles.statLabel}>Top Speed</p>
           <p>{stats.getTopSpeed()}</p>
         </div>
