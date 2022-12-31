@@ -8,6 +8,8 @@ import LessonBoard from "../components/LessonBoard/LessonBoard";
 import LessonStats from "../components/LessonStats/LessonStats";
 import { useStatsContext } from "../contexts/StatsContext";
 
+const chance = require("chance").Chance();
+
 export default function Practice(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
@@ -19,42 +21,14 @@ export default function Practice(
   const [lessonStartTime, setLessonStartTime] = useState(0);
   const [isLessonInProgress, setIsLessonInProgress] = useState(false);
 
-  const getRandomNumber = useCallback((upperLimit: number, lowerLimit = 0) => {
-    return Math.floor(Math.random() * upperLimit) + lowerLimit;
-  }, []);
-
-  const getRandomWord = useCallback(
-    (wordLength = 10) => {
-      let consonants = "bcdfghjlmnpqrstv".split("");
-      let vowels = "aeiou".split("");
-      let word = "";
-      let length = parseInt(wordLength.toString(), 10);
-
-      for (let i = 0; i < length / 2; i++) {
-        const randConsonant = consonants[getRandomNumber(consonants.length)];
-        const randVowel = vowels[getRandomNumber(vowels.length)];
-
-        if (props.settings?.includeCapitals) {
-          word += i === 0 ? randConsonant.toUpperCase() : randConsonant;
-        } else {
-          word += i === 0 ? randConsonant : randConsonant;
-        }
-        word += i * 2 < length - 1 ? randVowel : "";
-      }
-
-      return word;
-    },
-    [getRandomNumber, props.settings]
-  );
-
   const getRandomWords = useCallback(() => {
     const wordCount = props.settings?.wordsPerLesson ?? 0;
     const wordsArr: string[] = [];
     for (let i = 0; i < wordCount; i++) {
-      wordsArr.push(getRandomWord(getRandomNumber(10, 2)));
+      wordsArr.push(chance.word());
     }
     return wordsArr;
-  }, [getRandomWord, getRandomNumber, props.settings?.wordsPerLesson]);
+  }, [props.settings?.wordsPerLesson]);
 
   const getLesson = useCallback(() => {
     return getRandomWords().join(" ").replaceAll(" ", "_").split("");
