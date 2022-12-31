@@ -7,7 +7,7 @@ interface LessonStatsProps {
   accuracy: number;
 }
 
-export default function LessonStats({ speed, accuracy }: LessonStatsProps) {
+export default function LessonStats() {
   const stats = useStatsContext();
 
   return (

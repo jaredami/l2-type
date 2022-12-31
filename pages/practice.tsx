@@ -17,8 +17,6 @@ export default function Practice(
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [mistakeIndexes, setMistakeIndexes] = useState<number[]>([]);
   const [lessonStartTime, setLessonStartTime] = useState(0);
-  const [prevLessonWPM, setPrevLessonWPM] = useState(0);
-  const [prevLessonAccuracy, setPrevLessonAccuracy] = useState(0);
   const [isLessonInProgress, setIsLessonInProgress] = useState(false);
 
   const getRandomNumber = useCallback((upperLimit: number, lowerLimit = 0) => {
@@ -127,8 +125,6 @@ export default function Practice(
   const handleEndOfLesson = useCallback(async () => {
     const wpm = getWpm();
     const accuracy = getAccuracy();
-    setPrevLessonWPM(wpm);
-    setPrevLessonAccuracy(accuracy);
 
     const lesson = { wpm, accuracy };
 
@@ -185,7 +181,7 @@ export default function Practice(
         <title>Practice - L2Type</title>
       </Head>
       <div>
-        <LessonStats speed={prevLessonWPM} accuracy={prevLessonAccuracy} />
+        <LessonStats />
         <LessonBoard
           lesson={lesson}
           mistakeIndexes={mistakeIndexes}
@@ -204,7 +200,6 @@ export async function getServerSideProps() {
   let settings;
   try {
     const session = await getSession();
-
     settings = await prisma.settings.findFirst({
       where: {
         user: {
