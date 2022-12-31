@@ -30,33 +30,37 @@ export default function LessonStats() {
 
   return (
     <div className={styles.container}>
-      <span>Speed: {stats.getPreviousLesson().wpm}</span>
       <span>
-        (
-        <span
-          className={
-            isPositive(getWpmDeviation())
-              ? styles.deviationPositive
-              : styles.deviationNegative
-          }
-        >
-          {getWpmDeviation()}
+        <span>Speed: {stats.getPreviousLesson().wpm} </span>
+        <span>
+          (
+          <span
+            className={
+              isPositive(getWpmDeviation())
+                ? styles.deviationPositive
+                : styles.deviationNegative
+            }
+          >
+            {getWpmDeviation()}
+          </span>
+          )
         </span>
-        )
       </span>
-      <span>Accuracy: {stats.getPreviousLesson().accuracy}%</span>
       <span>
-        (
-        <span
-          className={
-            isPositive(getAccuracyDeviation())
-              ? styles.deviationPositive
-              : styles.deviationNegative
-          }
-        >
-          {getAccuracyDeviation()}
+        <span>Accuracy: {stats.getPreviousLesson().accuracy}% </span>
+        <span>
+          (
+          <span
+            className={
+              isPositive(getAccuracyDeviation())
+                ? styles.deviationPositive
+                : styles.deviationNegative
+            }
+          >
+            {getAccuracyDeviation()}
+          </span>
+          )
         </span>
-        )
       </span>
     </div>
   );

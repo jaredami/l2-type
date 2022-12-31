@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  column-gap: 1rem;
+  column-gap: 2rem;
   color: var(--color-gray);
 }
 
