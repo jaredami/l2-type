@@ -40,6 +40,7 @@ export default function LessonStats() {
                 ? styles.deviationPositive
                 : styles.deviationNegative
             }
+            title="The deviation from your average speed."
           >
             {getWpmDeviation()}
           </span>
@@ -56,6 +57,7 @@ export default function LessonStats() {
                 ? styles.deviationPositive
                 : styles.deviationNegative
             }
+            title="The deviation from your average accuracy."
           >
             {getAccuracyDeviation()}
           </span>
