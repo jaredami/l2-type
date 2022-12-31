@@ -31,7 +31,7 @@ export default function LessonStats() {
   return (
     <div className={styles.container}>
       <span>
-        <span>Speed: {stats.getPreviousLesson().wpm} </span>
+        <span>Speed: {stats.getPreviousLesson().wpm} wpm </span>
         <span>
           (
           <span
