@@ -13,7 +13,13 @@ export default function LessonStats() {
   return (
     <div className={styles.container}>
       <span>Speed: {stats.getPreviousLesson().wpm}</span>
+      <span>
+        (<span className={styles.deviationPositive}>+19.3</span>)
+      </span>
       <span>Accuracy: {stats.getPreviousLesson().accuracy}%</span>
+      <span>
+        (<span className={styles.deviationNegative}>+19.3</span>)
+      </span>
     </div>
   );
 }
