@@ -2,6 +2,7 @@ import { Lesson } from "@prisma/client";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 
 interface StatsContextInterface {
+  getPreviousLesson(): Lesson;
   getAverageWpm(): number;
   getAverageAccuracy(): number;
   getTotalLessonsCount(): number;
@@ -79,7 +80,17 @@ export function StatsProvider({
     });
   }
 
+  function getPreviousLesson() {
+    return (
+      lessons[lessons.length - 1] ?? {
+        wpm: 0,
+        accuracy: 0,
+      }
+    );
+  }
+
   const value = {
+    getPreviousLesson,
     getAverageWpm,
     getAverageAccuracy,
     getTotalLessonsCount,
