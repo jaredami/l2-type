@@ -1,8 +1,8 @@
-import { PrismaClient } from "@prisma/client";
 import { InferGetServerSidePropsType } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import SettingsControls from "../components/SettingsControls/SettingsControls";
+import { getUserSettingsWithDefaults } from "../lib/utils";
 
 export default function Settings(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -19,25 +19,19 @@ export default function Settings(
   );
 }
 
-const prisma = new PrismaClient();
-
 export async function getServerSideProps() {
-  let settings;
   try {
     const session = await getSession();
+    const userId = session?.user?.id;
+    const settings = await getUserSettingsWithDefaults(userId);
 
-    settings = await prisma.settings.findFirst({
-      where: {
-        user: {
-          id: session?.user.id,
-        },
-      },
-    });
+    return {
+      props: { settings },
+    };
   } catch (error) {
     console.error(error);
+    return {
+      props: { settings: null },
+    };
   }
-
-  return {
-    props: { settings: settings },
-  };
 }

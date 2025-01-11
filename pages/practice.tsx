@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import { InferGetServerSidePropsType } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
@@ -7,6 +6,7 @@ import Keyboard from "../components/Keyboard/Keyboard";
 import LessonBoard from "../components/LessonBoard/LessonBoard";
 import LessonStats from "../components/LessonStats/LessonStats";
 import { useStatsContext } from "../contexts/StatsContext";
+import { getUserSettingsWithDefaults } from "../lib/utils";
 
 const chance = require("chance").Chance();
 
@@ -168,24 +168,19 @@ export default function Practice(
   );
 }
 
-const prisma = new PrismaClient();
-
 export async function getServerSideProps() {
-  let settings;
   try {
     const session = await getSession();
-    settings = await prisma.settings.findFirst({
-      where: {
-        user: {
-          id: session?.user.id,
-        },
-      },
-    });
+    const userId = session?.user?.id;
+    const settings = await getUserSettingsWithDefaults(userId);
+
+    return {
+      props: { settings },
+    };
   } catch (error) {
     console.error(error);
+    return {
+      props: { settings: null },
+    };
   }
-
-  return {
-    props: { settings: settings },
-  };
 }

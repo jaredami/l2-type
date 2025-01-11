@@ -1,11 +1,11 @@
-import { Settings } from "@prisma/client";
 import { useEffect, useState } from "react";
+import { UserSettings } from "../../lib/utils";
 import styles from "./SettingsControls.module.css";
 
 export const WORDS_MIN = 5;
 const WORDS_MAX = 30;
 
-export default function SettingsControls({ settings }: { settings: Settings }) {
+export default function SettingsControls({ settings }: { settings: UserSettings }) {
   const [includeCapitals, setIncludeCapitals] = useState(
     settings.includeCapitals
   );
