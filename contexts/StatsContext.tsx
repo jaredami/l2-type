@@ -72,6 +72,7 @@ export function StatsProvider({
   }
 
   function getTopSpeed() {
+    if (!lessons.length) return 0;
     const wpmEntries = lessons.map((lesson) => lesson.wpm);
     if (!wpmEntries.length) return 0;
     return wpmEntries.reduce((topSpeed, item): number => {
