@@ -1,13 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 import { z } from "zod";
 import prisma from "../../prisma";
+import { authOptions } from "./auth/[...nextauth]";
 
 async function createLesson(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res, authOptions);
 
   if (!session || !session.user) {
     return res.status(401).json({ unauthorized: true });
@@ -47,7 +48,7 @@ export async function getLessons(
   res: NextApiResponse
 ): Promise<void> {
   try {
-    const session = await getSession({ req });
+    const session = await getServerSession(req, res, authOptions);
 
     if (!session || !session.user) {
       return res.status(401).json({ unauthorized: true });

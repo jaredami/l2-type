@@ -23,8 +23,9 @@ export function useStatsContext() {
 }
 
 const getAverage = (items: number[]) => {
+  if (items.length === 0) return 0;
   const preciseAvg =
-    (100 * items.reduce((total, item) => total + item)) / items.length;
+    (100 * items.reduce((total, item) => total + item, 0)) / items.length;
   const avg = Math.round(preciseAvg) / 100;
   return avg;
 };
@@ -38,16 +39,20 @@ export function StatsProvider({
 
   const fetchLessons = useCallback(async () => {
     try {
-      const lessonsData = await fetch("/api/lessons", {
+      const response = await fetch("/api/lessons", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const items = await lessonsData.json();
+      if (!response.ok) {
+        throw new Error('Failed to fetch lessons');
+      }
+      const items = await response.json();
       setLessons(items);
     } catch (error) {
-      console.error(error);
+      console.error('Error fetching lessons:', error);
+      setLessons([]); // Ensure lessons is an empty array if fetch fails
     }
   }, []);
 
@@ -74,16 +79,12 @@ export function StatsProvider({
   function getTopSpeed() {
     if (!lessons.length) return 0;
     const wpmEntries = lessons.map((lesson) => lesson.wpm);
-    if (!wpmEntries.length) return 0;
-    return wpmEntries.reduce((topSpeed, item): number => {
-      if (item > topSpeed) topSpeed = item;
-      return topSpeed;
-    });
+    return Math.max(...wpmEntries, 0);
   }
 
   function getPreviousLesson() {
     return (
-      lessons[lessons.length - 1] ?? {
+      lessons[lessons.length - 1] ?? { // Use nullish coalescing to handle undefined
         wpm: 0,
         accuracy: 0,
       }

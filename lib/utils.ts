@@ -7,7 +7,6 @@ export interface UserSettings {
     userId?: string;  // Optional if defaults are used before user assignment
   }
 
-
 const prisma = new PrismaClient();
 
 const defaultSettings: UserSettings = {
